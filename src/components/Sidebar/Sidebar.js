@@ -20,7 +20,7 @@ import { useLocation, NavLink } from "react-router-dom";
 
 import { Nav } from "react-bootstrap";
 
-import logo from "assets/img/reactlogo.png";
+import logo from "assets/img/logo.svg";
 
 function Sidebar({ color, image, routes }) {
   const location = useLocation();
@@ -29,12 +29,6 @@ function Sidebar({ color, image, routes }) {
   };
   return (
     <div className="sidebar" data-image={image} data-color={color}>
-      <div
-        className="sidebar-background"
-        style={{
-          backgroundImage: "url(" + image + ")"
-        }}
-      />
       <div className="sidebar-wrapper">
         <div className="logo d-flex align-items-center justify-content-start">
           <a
@@ -42,11 +36,11 @@ function Sidebar({ color, image, routes }) {
             className="simple-text logo-mini mx-1"
           >
             <div className="logo-img">
-              <img src={require("assets/img/reactlogo.png")} alt="..." />
+              <img src={logo} alt="..." />
             </div>
           </a>
           <a className="simple-text" href="http://www.creative-tim.com">
-            Creative Tim
+           Samriddhi Prawah
           </a>
         </div>
         <Nav>
@@ -71,7 +65,7 @@ function Sidebar({ color, image, routes }) {
                   </NavLink>
                 </li>
               );
-            return null;
+            return null; 
           })}
         </Nav>
       </div>
