@@ -1,6 +1,6 @@
 *{
     font-family: 'Montserrat', sans-serif;
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
     margin:0;
     padding:0;
 
@@ -54,16 +54,14 @@ flex-direction: column;
 #forminput{
     background-color: #D6D7DC50;
     border:0.5px solid black;
-    margin-top:1px;
     border-radius:7px;
     width:35.43vw;
     height:50px;
     font-size: 1rem;
-    font-weight: 600;
     padding-left:42px;
 }
 #formlabel{
-    font-weight: 600;
+
     margin-top:10px;
 }
 #eyecloseimg{
@@ -97,7 +95,7 @@ flex-direction: column;
     background-color: #109380;
     border:none;
     color:white;
-    margin-top:40px;
+    margin-top:20px;
     font-weight: 600;
     width:35.43vw;
     height:50px;

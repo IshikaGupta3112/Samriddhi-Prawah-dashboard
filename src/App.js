@@ -4,13 +4,13 @@ import AdminLayout from "layouts/Admin.js";
 import Login from "layouts/Login";
 import { useSelector } from 'react-redux'
 
-
 const App = () => {
     // const isUser = useSelector((state)=>state.user).isUser||localStorage.getItem("token")
     // console.log(isUser);
     return (
         <Switch>
             <Route path="/auth/login" render={()=><Login/>}/>
+            {/* <Route path="/table2" render={()=><Table2/>}/> */}
             <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
             <Redirect from="/" to="/auth/login" />
         </Switch>

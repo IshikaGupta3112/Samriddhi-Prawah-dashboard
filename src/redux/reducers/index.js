@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
-// import loading from "./loading";
-// import user from "./user";
+import table from "./table";
+import authreducer from "./authReducers";
+import itemReducer from "./ItemsReducers";
 // import cart from "./cart";
 
 export default combineReducers({
-    // loading,
-    // user,
-    // cart
+    authreducer,
+    itemReducer
 })

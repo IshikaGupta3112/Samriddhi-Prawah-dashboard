@@ -28,7 +28,6 @@ import "./assets/css/demo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Provider } from 'react-redux'
 import store , {persistor} from './redux/store.js'
-
 import AdminLayout from "layouts/Admin.js";
 import Details from "views/Details";
 // import Login from "views/Login";

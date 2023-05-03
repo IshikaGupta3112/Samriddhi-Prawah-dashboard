@@ -39,7 +39,7 @@ function Sidebar({ color, image, routes }) {
               <img src={logo} alt="..." />
             </div>
           </a>
-          <a className="simple-text" href="http://www.creative-tim.com">
+          <a className="simple-text">
            Samriddhi Prawah
           </a>
         </div>

@@ -1,61 +1,61 @@
 import "./auth.css";
-import logo from "../assets/logo.svg";
-import mailimg from '../assets/mail.svg';
-import lockimg from '../assets/lock.svg';
+import logo from "../assets/img/logo2.svg";
+import mailimg from '../assets/img/mail.svg';
+import lockimg from '../assets/img/lock.svg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEye,
   faEyeSlash,
 } from "@fortawesome/fontawesome-free-solid";
-// import { useNavigate } from "react-router-dom";
-// import FormData from 'form-data';
+import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
-// import { useDispatch , useSelector } from "react-redux";
+import { useDispatch , useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import * as ReactBootStrap from "react-bootstrap";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { logindata } from "redux/actions/Authaction";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [correctMail, setCorrectMail] = useState(false);
+  // const [correctMail, setCorrectMail] = useState(false);
 
   const [show, setShow] = useState(false);
 
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const rightmail =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   // const fd = new FormData();
-  // const navigate = useNavigate();
+  const history = useHistory();
 
-  // const [check , setCheck]= useState(0);
+  const [check , setCheck]= useState(0);
 
-// const mssg = useSelector((state)=>state.authreducer);
-// console.log(mssg);
+const mssg = useSelector((state)=>state.authreducer);
+console.log(mssg);
 
-// useEffect(()=>{
-//     console.log(check);
-//     if(check==1){
-//     toast.error(mssg.response[0], {
-//         position: toast.POSITION.TOP_RIGHT
-//     });
-//   }
-// } ,[check]);
+useEffect(()=>{
+    console.log(check);
+    if(check==1){
+    toast.error(mssg.response1, {
+        position: toast.POSITION.TOP_RIGHT
+    });
+  }
+} ,[check]);
    
-useEffect(() => {
-    if (rightmail.test(email)) {
-      document.getElementById("emailerr").style.display = "none";
-      setCorrectMail(true);
-    } else if (email) {
-      document.getElementById("emailerr").style.display = "block";
-      setCorrectMail(false);
-    }
-  }, [email]);
+// useEffect(() => {
+//     if (rightmail.test(email)) {
+//       document.getElementById("emailerr").style.display = "none";
+//       setCorrectMail(true);
+//     } else if (email) {
+//       document.getElementById("emailerr").style.display = "block";
+//       setCorrectMail(false);
+//     }
+//   }, [email]);
 
   function showHide() {
     setShow(!show);
@@ -71,22 +71,26 @@ useEffect(() => {
     e.preventDefault();
     // localStorage.setItem("loginMail" , email);
     // if (correctMail) {
-    //   setLoading(true);
-    //   setCheck(0);
+      setLoading(true);
+      setCheck(0);
     //   fd.append("email" , email);
     //   fd.append("password" , password);
     //   console.log(fd);
-    //   // dispatch(logindata(fd, setLoading , navigate , setCheck));
+    const fd={
+      uname:email , 
+      password:password
+    }
+      dispatch(logindata(fd,history,setCheck, setLoading));
     // }
   }
 
   return (
     <>
-      {/* {loading ? (
+      {loading ? (
         <div id="loader">
           <ReactBootStrap.Spinner animation="border" id="spinner" />
         </div>
-      ) : null} */}
+      ) : null}
       <div id="flex">
         <div className="bluediv">
           <img src={logo} className="bluedivimg" />
@@ -94,23 +98,23 @@ useEffect(() => {
         <div id="forms">
           <h1 className="form-heading">Login</h1>
           <form 
-          // onSubmit={handleSubmit} 
+          onSubmit={handleSubmit} 
           id='formtop'>
             <div id="formflex">
               <label htmlFor="email" id="formlabel">
-                Email Address
+               User Name
               </label>
               <input
                 type="text"
                 id="forminput"
                 value={email}
-                placeholder="Enter Your Email"
+                placeholder="Enter User name"
                 onChange={handleMail}
                 maxLength={30}
                 required
               ></input>
               <img src={mailimg} id="mailimg"></img>
-              <p id="emailerr">Invalid Email Address</p>
+              {/* <p id="emailerr">Invalid Email Address</p> */}
               <label htmlFor="password" id="formlabel">
                 Password
               </label>
@@ -137,7 +141,7 @@ useEffect(() => {
                 />
               )}
               <p id="forgotlink">
-                <Link to="/forgot">Forgot Password?</Link>
+                {/* <Link to="/forgot">Forgot Password?</Link> */}
               </p>
             </div>
             <button type="submit" id="formbtn">
@@ -145,16 +149,8 @@ useEffect(() => {
             </button>
             <ToastContainer />
           </form>
-          {/* <p id="endtxt">
-            New To Bulk Mailer?
-            <span id="endlink">
-              <Link to="/signup">Signup</Link>
-            </span>
-          </p> */}
         </div>
       </div>
-      {/* <img src={circle} className="bluecircleimg"></img> */}
-      {/* <div className="bluecircleimg2"></div> */}
     </>
   );
 }

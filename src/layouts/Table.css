@@ -1,0 +1,15 @@
+.tvimg{
+    width:35px;
+    cursor: pointer;
+}
+#tickimg{
+    cursor: pointer;
+}
+.viewBtn{
+    color:white;
+    background-color: #109380;
+    border:none;
+    padding:6px;
+    cursor: pointer;
+    border-radius: 10px;
+}
