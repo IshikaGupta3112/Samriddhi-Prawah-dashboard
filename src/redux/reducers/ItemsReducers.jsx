@@ -12,6 +12,10 @@ const initial={
             items:action.payload.data.items
          }
      }
+     case "Approve" :{
+        console.log(action.payload);
+        return null
+ }
         
           default: return null;
      } 

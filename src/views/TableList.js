@@ -13,20 +13,22 @@ import * as ReactBootStrap from "react-bootstrap";
 import { useSelector } from 'react-redux';
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { approveData } from 'redux/actions/ItemsAction';
 
 function Table(){
 
 const [check , setCheck] = useState(0);
-const[loading , setLoading] = useState(true);
+const [check2 , setCheck2] = useState(0);
+const[loading , setLoading] = useState(false);
 const[list1 , setList1] = useState();
-const[imgList , setImgList] = useState();
+const [object , setObject] = useState();
 
 const list =useSelector((s)=>s.itemReducer);
 
   const dispatch = useDispatch();
 
   useEffect(()=>{
-    dispatch(itemData(setLoading , setCheck));
+    dispatch(itemData(setLoading , setCheck ));
     },[])
 
     useEffect(()=>{
@@ -51,7 +53,7 @@ const list =useSelector((s)=>s.itemReducer);
     },
     {
       name:"Action",
-      cell:(row)=><><img src={tick} onClick={approve} id='tickimg'/><img src={cross} onClick={disapprove} id='tickimg'/></>
+      cell:(row)=><><img src={tick} onClick={approve} id={row._id} className='tickimg'/><img src={cross} onClick={disapprove} id={row._id} className='tickimg'/></>
     },
     {
       name:"Student's Details",
@@ -62,26 +64,36 @@ const list =useSelector((s)=>s.itemReducer);
     },
   ]
 
-  function approve(){
+  function approve(e){
     console.log('approved');
+    console.log(e.target.id);
+    localStorage.setItem("productId2" , e.target.id);
+    setCheck2(0);
+   const fd={
+      status:"APPROVED"
+    } 
+    dispatch(approveData(fd));
   }
-  function disapprove(){
+  function disapprove(e){
     console.log('disapproved');
+    console.log(e.target.id);
+    localStorage.setItem("productId2" , e.target.id);
   }
 
-  var productId = localStorage.getItem("productId");
-  const object =list.items.find(obj => obj._id === productId)
+// var productId = localStorage.getItem("productId");
 // var object;
-  console.log(object);
-  console.log(object.images);
+// const object = list.items.find(obj => obj._id === productId);
 
   function view(e){
    setShowDialog2(true);
    console.log(e.target.id);
    localStorage.setItem("productId" , e.target.id);
+  //  object = list.items.find(obj => obj._id === productId);
+  var productId = localStorage.getItem("productId");
+  setObject(list1.find(obj => obj._id === productId));
+   console.log(object);
   }
 
-  var imgSrc = localStorage.getItem("dialogImage");
   const[showDialog , setShowDialog] = useState(false);
   const[showDialog2 , setShowDialog2] = useState(false);
 
@@ -92,50 +104,50 @@ const list =useSelector((s)=>s.itemReducer);
     setShowDialog(true);
     console.log(e.target.id);
     localStorage.setItem("productId" , e.target.id);
+    var productId = localStorage.getItem("productId");
+    // object = list.items.find(obj => obj._id === productId);
+    setObject(list1.find(obj => obj._id === productId));
   }
 
-
 return(<>
-{loading?<div id='loader'><ReactBootStrap.Spinner animation="border" id="spinner"/></div>:null}
+{loading?<div id='loader2'><ReactBootStrap.Spinner animation="border" id="spinner2"/></div>:null}
 <Dialog open={showDialog} onClose={closeDialog}>
   {object?<Carousel showThumbs={false} useKeyboardArrows={true}>
-        {object.images.map((URL) => (
-          <div>
+        {object?object.images.map((URL) => (
+          <div className='slide'>
             <img alt="sample_file" src={URL} style={{marginBottom:'0px'}}/>
           </div>
           // </div>
-        ))}
+        )):null}
       </Carousel>:null}
-{/* <Box>
-  <img src={imgSrc} width='100%'></img>
-</Box> */}
 </Dialog>
 <Dialog open={showDialog2} onClose={closeDialog2}>
 <DialogTitle>Student's Details</DialogTitle>
 <DialogContent>
   <DialogContentText>
-    {(object)?
-    <pre>
-    <span style={{fontWeight:"bold"}}>Student's Name        : </span><span>{object.user.name}</span>
-    <br></br>
-    <span style={{fontWeight:"bold"}}>Email                           : </span><span>{object.user.email}</span>
-    <br></br>
-    <span style={{fontWeight:"bold"}}>Course                        : </span><span>{object.user.course}</span>
-    <br></br>
-    <span style={{fontWeight:"bold"}}>Branch                        : </span><span>{object.user.branch}</span>
-    <br></br>
-    <span style={{fontWeight:"bold"}}>Year                             : </span><span>{object.user.year}</span>
-    <br></br>
-    <span style={{fontWeight:"bold"}}>Phone No.                  : </span><span>{object.user.phone_no}</span>
-    <br></br>
-    <span style={{fontWeight:"bold"}}>Student's No              : </span><span>{object.user.student_no}</span>
-    <br></br>
-    <span style={{fontWeight:"bold"}}>Place of Residence   : </span><span>{object.user.POR}</span>
-    <br></br>
-    <span style={{fontWeight:"bold"}}>Date Of Donation      : </span><span>{}</span>
-    <br></br>
-    <span style={{fontWeight:"bold"}}>Time of Donation      : </span><span>{}</span>
-    </pre>:null}
+ {(object)?
+  <pre>
+  <span style={{fontWeight:"bold"}}>Student's Name        : </span><span>{object.user.name}</span>
+  <br></br>
+  <span style={{fontWeight:"bold"}}>Email                           : </span><span>{object.user.email}</span>
+  <br></br>
+  <span style={{fontWeight:"bold"}}>Course                        : </span><span>{object.user.course}</span>
+  <br></br>
+  <span style={{fontWeight:"bold"}}>Branch                        : </span><span>{object.user.branch}</span>
+  <br></br>
+  <span style={{fontWeight:"bold"}}>Year                             : </span><span>{object.user.year}</span>
+  <br></br>
+  <span style={{fontWeight:"bold"}}>Phone No.                  : </span><span>{object.user.phone_no}</span>
+  <br></br>
+  <span style={{fontWeight:"bold"}}>Student's No              : </span><span>{object.user.student_no}</span>
+  <br></br>
+  <span style={{fontWeight:"bold"}}>Place of Residence   : </span><span>{object.user.POR}</span>
+  <br></br>
+  <span style={{fontWeight:"bold"}}>Date Of Donation      : </span><span>{}</span>
+  <br></br>
+  <span style={{fontWeight:"bold"}}>Time of Donation      : </span><span>{}</span>
+  </pre>:null}
+   
   </DialogContentText>
 </DialogContent>
 </Dialog>
