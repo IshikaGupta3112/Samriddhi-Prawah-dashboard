@@ -9,7 +9,7 @@ async (dispatch)=>{
         Authorization:`Bearer ${accesstoken}`,
       }
     }
-    await axios.get("http://34.228.115.7:8080/api/admin/items" , config)
+    await axios.get("http://34.228.115.7:8080/api/admin/items?status=PENDING" , config)
       .then((res)=>{
         setCheck(1);
           setLoading(false);
@@ -28,7 +28,7 @@ async (dispatch)=>{
       })
   }
 
-  export const approveData =(fd) =>
+  export const approveData =(fd , setCheck2 , setLoading) =>
 async (dispatch)=>{
     var productId2 =localStorage.getItem("productId2");
     var accesstoken =localStorage.getItem("access");
@@ -37,10 +37,10 @@ async (dispatch)=>{
         Authorization:`Bearer ${accesstoken}`,
       }
     }
-    await axios.patch("http://34.228.115.7:8080/api/admin/status/:"+productId2 , config)
+    await axios.patch("http://34.228.115.7:8080/api/admin/status/"+productId2 ,fd, config)
       .then((res)=>{
-        // setCheck2(1);
-        //   setLoading(false);
+        setCheck2(1);
+          setLoading(false);
           dispatch(
               {type:'Approve' ,
               payload :res}
@@ -48,9 +48,38 @@ async (dispatch)=>{
           })
       .catch((err)=>{
         // setCheck2(1);
-        //   setLoading(false);
+          setLoading(false);
           dispatch(
               {type:'Approve' ,
+              payload :err}
+          )
+      })
+  }
+  
+
+  export const rejectData =(fd , setCheck3 , setLoading) =>
+async (dispatch)=>{
+    var productId2 =localStorage.getItem("productId2");
+    var accesstoken =localStorage.getItem("access");
+  const config ={
+      headers:{
+        Authorization:`Bearer ${accesstoken}`,
+      }
+    }
+    await axios.patch("http://34.228.115.7:8080/api/admin/status/"+productId2 ,fd, config)
+      .then((res)=>{
+        setCheck3(1);
+          setLoading(false);
+          dispatch(
+              {type:'Reject' ,
+              payload :res}
+              )
+          })
+      .catch((err)=>{
+        // setCheck2(1);
+          setLoading(false);
+          dispatch(
+              {type:'Reject',
               payload :err}
           )
       })

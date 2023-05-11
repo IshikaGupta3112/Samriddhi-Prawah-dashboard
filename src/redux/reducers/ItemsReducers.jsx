@@ -16,6 +16,10 @@ const initial={
         console.log(action.payload);
         return null
  }
+ case "Reject" :{
+   console.log(action.payload);
+   return null
+}
         
           default: return null;
      } 

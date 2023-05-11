@@ -16,12 +16,16 @@ import { useSelector } from 'react-redux';
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { approveData } from 'redux/actions/ItemsAction';
+import { rejectData } from 'redux/actions/ItemsAction';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Table(){
 
 const [check , setCheck] = useState(0);
 const [check2 , setCheck2] = useState(0);
-const[loading , setLoading] = useState(false);
+const [check3 , setCheck3] = useState(0);
+const[loading , setLoading] = useState(true);
 const[list1 , setList1] = useState();
 const [object , setObject] = useState();
 
@@ -39,6 +43,30 @@ const list =useSelector((s)=>s.itemReducer);
      setList1(list.items);
       }
       },[check])
+
+      useEffect(()=>{
+        console.log(check2);
+        if(check2==1){
+        toast.success("Item Approved", {
+            position: toast.POSITION.TOP_RIGHT
+        });
+        var productId2=localStorage.getItem("productId2");
+        const object=list1.find(obj => obj._id === productId2);
+        object.status="APPROVED"
+      }
+    } ,[check2]);
+
+    useEffect(()=>{
+      console.log(check3);
+      if(check3==1){
+      toast.error("Item Rejected", {
+          position: toast.POSITION.TOP_RIGHT
+      });
+      var productId2=localStorage.getItem("productId2");
+      const object=list1.find(obj => obj._id === productId2);
+      object.status="REJECTED"
+    }
+  } ,[check3]);
   
   const columns =[
     {
@@ -51,7 +79,11 @@ const list =useSelector((s)=>s.itemReducer);
     },
     {
       name:"Action",
-      cell:(row)=><><img src={tick} onClick={approve} id={row._id} className='tickimg'/><img src={cross} onClick={disapprove} id={row._id} className='tickimg'/></>
+      cell:(row)=><>{(row.status!=='APPROVED')?<img src={tick} onClick={approve} id={row._id} className='tickimg'/>:null}{(row.status!=='REJECTED')?<img src={cross} onClick={disapprove} id={row._id} className='tickimg'/>:null}</>
+    },
+    {
+      name:"Status",
+      selector:(data)=>data.status
     },
     {
       name:"Student's Details",
@@ -66,16 +98,23 @@ const list =useSelector((s)=>s.itemReducer);
     console.log('approved');
     console.log(e.target.id);
     localStorage.setItem("productId2" , e.target.id);
+    setLoading(true);
     setCheck2(0);
    const fd={
       status:"APPROVED"
     } 
-    dispatch(approveData(fd));
+    dispatch(approveData(fd ,setCheck2 , setLoading));
   }
   function disapprove(e){
-    console.log('disapproved');
+    console.log('rejected');
     console.log(e.target.id);
     localStorage.setItem("productId2" , e.target.id);
+    setLoading(true);
+    setCheck3(0);
+   const fd={
+      status:"REJECTED"
+    } 
+    dispatch(rejectData(fd ,setCheck3 , setLoading));
   }
 
   function view(e){
@@ -142,7 +181,9 @@ return(<>
   </DialogContentText>
 </DialogContent>
 </Dialog>
-<DataTable columns={columns} data={list1} pagination customStyles={tableCustomStyles}/>
+  <DataTable columns={columns} data={list1} pagination customStyles={tableCustomStyles} 
+  />
+<ToastContainer />
 </>)
 }
 export default Table;
