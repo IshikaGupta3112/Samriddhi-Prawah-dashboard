@@ -3,6 +3,8 @@ import DataTable from 'react-data-table-component';
 import '../layouts/Table.css';
 import tick from '../assets/img/tick.svg';
 import cross from '../assets/img/cross.svg'
+import eye from '../assets/img/eye.svg';
+import image from '../assets/img/img.svg';
 import { Dialog , DialogTitle, Box,DialogContent , DialogActions, DialogContentText
 } from '@material-ui/core';
 import { tableCustomStyles } from './CustomStyles';
@@ -43,13 +45,9 @@ const list =useSelector((s)=>s.itemReducer);
       name:"Product Name",
       selector:(data)=>data.name
     },
-    // {
-    //   name:"Description",
-    //   selector:(data)=>data.description
-    // },
     {
       name:"Image",
-      selector:(data)=><img src={data.images[0]} id={data._id} className='tvimg' onClick={imgClick}/>
+      selector:(data)=><img src={image} id={data._id} className='tvimg' onClick={imgClick}/>
     },
     {
       name:"Action",
@@ -59,7 +57,7 @@ const list =useSelector((s)=>s.itemReducer);
       name:"Student's Details",
       cell:(row)=>
       <>
-      <button id={row._id} className='viewBtn' onClick={view}>View</button>
+      <img src={eye} id={row._id} className='viewEye' onClick={view} />
     </>
     },
   ]
@@ -80,15 +78,10 @@ const list =useSelector((s)=>s.itemReducer);
     localStorage.setItem("productId2" , e.target.id);
   }
 
-// var productId = localStorage.getItem("productId");
-// var object;
-// const object = list.items.find(obj => obj._id === productId);
-
   function view(e){
    setShowDialog2(true);
    console.log(e.target.id);
    localStorage.setItem("productId" , e.target.id);
-  //  object = list.items.find(obj => obj._id === productId);
   var productId = localStorage.getItem("productId");
   setObject(list1.find(obj => obj._id === productId));
    console.log(object);
@@ -105,7 +98,6 @@ const list =useSelector((s)=>s.itemReducer);
     console.log(e.target.id);
     localStorage.setItem("productId" , e.target.id);
     var productId = localStorage.getItem("productId");
-    // object = list.items.find(obj => obj._id === productId);
     setObject(list1.find(obj => obj._id === productId));
   }
 
@@ -117,7 +109,6 @@ return(<>
           <div className='slide'>
             <img alt="sample_file" src={URL} style={{marginBottom:'0px'}}/>
           </div>
-          // </div>
         )):null}
       </Carousel>:null}
 </Dialog>

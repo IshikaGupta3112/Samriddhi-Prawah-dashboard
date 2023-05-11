@@ -5,13 +5,8 @@
 #tickimg{
     cursor: pointer;
 }
-.viewBtn{
-    color:white;
-    background-color: #109380;
-    border:none;
-    padding:6px;
+.viewEye{
     cursor: pointer;
-    border-radius: 10px;
 }
 .carousel .thumb img {
     width: 100% !important;
