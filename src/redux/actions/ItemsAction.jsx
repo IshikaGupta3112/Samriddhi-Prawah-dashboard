@@ -110,6 +110,33 @@ async (dispatch)=>{
       })
   }
   
+  export const collectItem =(fd , setCheck4 , setLoading) =>
+  async (dispatch)=>{
+      var productId2 =localStorage.getItem("productId2");
+      var accesstoken =localStorage.getItem("access");
+    const config ={
+        headers:{
+          Authorization:`Bearer ${accesstoken}`,
+        }
+      }
+      await axios.patch("http://34.228.115.7:8080/api/admin/status/"+productId2 ,fd, config)
+        .then((res)=>{
+          setCheck4(1);
+            setLoading(false);
+            dispatch(
+                {type:'CollectItem' ,
+                payload :res}
+                )
+            })
+        .catch((err)=>{
+          // setCheck2(1);
+            setLoading(false);
+            dispatch(
+                {type:'CollectItem' ,
+                payload :err}
+            )
+        })
+    }
 
   export const rejectData =(fd , setCheck3 , setLoading) =>
 async (dispatch)=>{

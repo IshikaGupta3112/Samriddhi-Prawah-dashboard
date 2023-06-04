@@ -5,11 +5,13 @@ import tick from '../assets/img/tick.svg';
 import cross from '../assets/img/cross.svg'
 import eye from '../assets/img/eye.svg';
 import image from '../assets/img/img.svg';
+import collect from '../assets/img/collect.svg'
 import { Dialog , DialogTitle, Box,DialogContent , DialogActions, DialogContentText
 } from '@material-ui/core';
 import { tableCustomStyles } from './CustomStyles';
 import { useDispatch } from 'react-redux';
 import { approvedItems} from 'redux/actions/ItemsAction';
+import { collectItem } from 'redux/actions/ItemsAction';
 import { useEffect } from 'react';
 import * as ReactBootStrap from "react-bootstrap";
 import { useSelector } from 'react-redux';
@@ -19,12 +21,14 @@ import { approveData } from 'redux/actions/ItemsAction';
 import { rejectData } from 'redux/actions/ItemsAction';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import {Select, MenuItem} from "@mui/material";
+ 
 function Approved(){
 
 const [check , setCheck] = useState(0);
 const [check2 , setCheck2] = useState(0);
 const [check3 , setCheck3] = useState(0);
+const [check4, setCheck4] = useState(0);
 const[loading , setLoading] = useState(true);
 const[list1 , setList1] = useState();
 const [object , setObject] = useState();
@@ -57,6 +61,18 @@ const list =useSelector((s)=>s.itemReducer);
     } ,[check2]);
 
     useEffect(()=>{
+      console.log(check4);
+      if(check4==1){
+      toast.success("Collected ", {
+          position: toast.POSITION.TOP_RIGHT
+      });
+      var productId2=localStorage.getItem("productId2");
+      const object=list1.find(obj => obj._id === productId2);
+      object.status="COLLECTED"
+    }
+  } ,[check4]);
+
+    useEffect(()=>{
       console.log(check3);
       if(check3==1){
       toast.error("Item Rejected", {
@@ -82,6 +98,23 @@ const list =useSelector((s)=>s.itemReducer);
       cell:(row)=><>{(row.status!=='APPROVED')?<img src={tick} onClick={approve} id={row._id} className='tickimg'/>:null}{(row.status!=='REJECTED')?<img src={cross} onClick={disapprove} id={row._id} className='tickimg'/>:null}</>
     },
     {
+      name:"Collect",
+      cell:(row)=><Select onChange={collect} id={row._id} onClick={storeId}
+              sx={{      
+                width: 100,
+                height: 30,
+              }}
+            >
+              <MenuItem value='COLLECTED_BH1' id={row._id}>BH1</MenuItem>
+              <MenuItem value='COLLECTED_BH2'id={row._id}>BH2</MenuItem>
+              <MenuItem value='COLLECTED_BH3'id={row._id}>BH3</MenuItem>
+              <MenuItem value='COLLECTED_GH1'id={row._id}>GH1</MenuItem>
+              <MenuItem value='COLLECTED_GH2'id={row._id}>GH2</MenuItem>
+              <MenuItem value='COLLECTED_GH3'id={row._id}>GH3</MenuItem>
+             </Select>
+  
+    },
+    {
       name:"Status",
       selector:(data)=>data.status
     },
@@ -105,6 +138,22 @@ const list =useSelector((s)=>s.itemReducer);
     } 
     dispatch(approveData(fd ,setCheck2 , setLoading));
   }
+
+  function collect(e){
+    console.log(e.target.value);
+    setLoading(true);
+    setCheck4(0);
+   const fd={
+      status:e.target.value
+    } 
+    dispatch(collectItem(fd ,setCheck4 , setLoading));
+  }
+
+  function storeId(e){
+    console.log(e.target.id);
+    localStorage.setItem("productId2" , e.target.id);
+  }
+
   function disapprove(e){
     console.log('rejected');
     console.log(e.target.id);

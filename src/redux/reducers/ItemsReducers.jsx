@@ -31,6 +31,10 @@ const initial={
         console.log(action.payload);
         return null
  }
+ case "CollectItem" :{
+   console.log(action.payload);
+   return null
+}
  case "Reject" :{
    console.log(action.payload);
    return null

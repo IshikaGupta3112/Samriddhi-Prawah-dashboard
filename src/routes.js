@@ -29,13 +29,13 @@ import Collector from "views/Collector";
 
 const dashboardRoutes = [
 
-  {
-    path: "/dashboard",
-    name: "Dashboard",
-    icon: "nc-icon nc-chart-pie-35",
-    component: Dashboard,
-    layout: "/admin"
-  },
+  // {
+  //   path: "/dashboard",
+  //   name: "Dashboard",
+  //   icon: "nc-icon nc-chart-pie-35",
+  //   component: Dashboard,
+  //   layout: "/admin"
+  // },
 
   {
     path: "/table",
