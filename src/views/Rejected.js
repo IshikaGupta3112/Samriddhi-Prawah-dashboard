@@ -9,7 +9,7 @@ import { Dialog , DialogTitle, Box,DialogContent , DialogActions, DialogContentT
 } from '@material-ui/core';
 import { tableCustomStyles } from './CustomStyles';
 import { useDispatch } from 'react-redux';
-import { itemData } from 'redux/actions/ItemsAction';
+import {rejectedItems} from 'redux/actions/ItemsAction';
 import { useEffect } from 'react';
 import * as ReactBootStrap from "react-bootstrap";
 import { useSelector } from 'react-redux';
@@ -20,7 +20,7 @@ import { rejectData } from 'redux/actions/ItemsAction';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function Table(){
+function Rejected(){
 
 const [check , setCheck] = useState(0);
 const [check2 , setCheck2] = useState(0);
@@ -34,7 +34,7 @@ const list =useSelector((s)=>s.itemReducer);
   const dispatch = useDispatch();
 
   useEffect(()=>{
-    dispatch(itemData(setLoading , setCheck ));
+    dispatch(rejectedItems(setLoading , setCheck ));
     },[])
 
     useEffect(()=>{
@@ -173,6 +173,8 @@ return(<>
   <br></br>
   <span style={{fontWeight:"bold"}}>Place of Residence   : </span><span>{object.user.POR}</span>
   <br></br>
+  <span style={{fontWeight:"bold"}}>Description                : </span><span>{object.description}</span>
+  <br></br>
   <span style={{fontWeight:"bold"}}>Date Of Donation      : </span><span>{}</span>
   <br></br>
   <span style={{fontWeight:"bold"}}>Time of Donation      : </span><span>{}</span>
@@ -186,5 +188,5 @@ return(<>
 <ToastContainer />
 </>)
 }
-export default Table;
+export default Rejected;
 

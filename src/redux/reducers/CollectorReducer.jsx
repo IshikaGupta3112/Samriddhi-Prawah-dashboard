@@ -1,5 +1,6 @@
 const initial={
-    response2:''
+    response2:'',
+    users:''
  };
  
  const collectorReducer =(state=initial 
@@ -18,6 +19,14 @@ const initial={
    return { response2:action.payload.response.data.msg}
           }
         }
+
+        case "CollectorList" :{
+            console.log(action.payload);
+            console.log(action.payload.data.users);
+            return {
+               users:action.payload.data.users
+            }
+         }
           default: return null;
      } 
   }

@@ -28,6 +28,60 @@ async (dispatch)=>{
       })
   }
 
+  export const approvedItems =(setLoading ,setCheck) =>
+async (dispatch)=>{
+    var accesstoken =localStorage.getItem("access")
+  const config ={
+      headers:{
+        Authorization:`Bearer ${accesstoken}`,
+      }
+    }
+    await axios.get("http://34.228.115.7:8080/api/admin/items?status=APPROVED" , config)
+      .then((res)=>{
+        setCheck(1);
+          setLoading(false);
+          dispatch(
+              {type:'ApprovedItems' ,
+              payload :res}
+              )
+          })
+      .catch((err)=>{
+        setCheck(1);
+          setLoading(false);
+          dispatch(
+              {type:'ApprovedItems' ,
+              payload :err}
+          )
+      })
+  }
+
+  export const rejectedItems =(setLoading ,setCheck) =>
+  async (dispatch)=>{
+      var accesstoken =localStorage.getItem("access")
+    const config ={
+        headers:{
+          Authorization:`Bearer ${accesstoken}`,
+        }
+      }
+      await axios.get("http://34.228.115.7:8080/api/admin/items?status=REJECTED" , config)
+        .then((res)=>{
+          setCheck(1);
+            setLoading(false);
+            dispatch(
+                {type:'RejectedItems' ,
+                payload :res}
+                )
+            })
+        .catch((err)=>{
+          setCheck(1);
+            setLoading(false);
+            dispatch(
+                {type:'RejectedItems' ,
+                payload :err}
+            )
+        })
+    }
+
   export const approveData =(fd , setCheck2 , setLoading) =>
 async (dispatch)=>{
     var productId2 =localStorage.getItem("productId2");

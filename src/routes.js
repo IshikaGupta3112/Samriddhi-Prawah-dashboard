@@ -17,22 +17,18 @@
 */
 import Dashboard from "views/Dashboard.js";
 import Role from "views/Role.js";
-import TableList from "views/TableList.js";
+import Pending from "views/Pending.js";
 import Typography from "views/Typography.js";
 import Icons from "views/Icons.js";
 import Maps from "views/Maps.js";
 import Notifications from "views/Notifications.js";
-import Upgrade from "views/Upgrade.js";
+import Approved from "views/Approved";
+import tickimg from './assets/img/tick.svg'
+import Rejected from "views/Rejected";
+import Collector from "views/Collector";
 
 const dashboardRoutes = [
-  // {
-  //   upgrade: true,
-  //   path: "/upgrade",
-  //   name: "Upgrade to PRO",
-  //   icon: "nc-icon nc-alien-33",
-  //   component: Upgrade,
-  //   layout: "/admin"
-  // },
+
   {
     path: "/dashboard",
     name: "Dashboard",
@@ -40,18 +36,47 @@ const dashboardRoutes = [
     component: Dashboard,
     layout: "/admin"
   },
+
   {
-    path: "/collector",
+    path: "/table",
+    name: "Pending Items",
+    icon: "nc-icon nc-notes",
+    component: Pending,
+    layout: "/admin"
+  },
+  {
+    path: "/approved",
+    name: "Approved Items",
+    icon: "nc-icon nc-check-2", 
+    component: Approved,
+    layout: "/admin"
+  },
+  {
+    path: "/rejected",
+    name: "Rejected Items",
+    icon: "nc-icon nc-simple-remove", 
+    component: Rejected,
+    layout: "/admin"
+  },
+  {
+    path: "/collected",
+    name: "Collected Items",
+    icon: "nc-icon nc-planet", 
+    component: Rejected,
+    layout: "/admin"
+  },
+  {
+    path: "/role",
     name: "Role",
     icon: "nc-icon nc-circle-09",
     component: Role,
     layout: "/admin"
   },
   {
-    path: "/table",
-    name: "Products",
-    icon: "nc-icon nc-notes",
-    component: TableList,
+    path: "/collector",
+    name: "Collectors",
+    icon: "nc-icon nc-circle-09",
+    component: Collector,
     layout: "/admin"
   },
   // {
