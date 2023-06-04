@@ -1,4 +1,9 @@
-import React from "react";
+import React, { useState , useEffect} from "react";
+import { useDispatch } from "react-redux";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useSelector } from "react-redux";
+import * as ReactBootStrap from "react-bootstrap";
 
 // react-bootstrap components
 import {
@@ -12,32 +17,76 @@ import {
   Row,
   Col
 } from "react-bootstrap";
+import { collectorData } from "redux/actions/CollectorActions";
 
-function User() {
+function Role() {
+
+  const [email, setEmail] = useState("");
+  const [check , setCheck] = useState(0);
+  const [loading , setLoading] = useState(false);
+
+const mssg = useSelector((state)=>state.collectorReducer);
+console.log(mssg);
+
+useEffect(()=>{
+    console.log(check);
+    if(check==1){
+      if(mssg.response2=="User Does Not Exist"){
+        toast.error(mssg.response2, {
+          position: toast.POSITION.TOP_RIGHT
+      });
+      }
+      else{
+    toast.success(mssg.response2, {
+        position: toast.POSITION.TOP_RIGHT
+    });
+  }
+  }
+} ,[check]);
+
+  const dispatch= useDispatch();
+
+  function handleMail(e) {
+    setEmail(e.target.value);
+  }
+
+  function handleSubmit(e){
+    setCheck(0);
+    setLoading(true);
+    e.preventDefault();
+    console.log(email);
+    const fd={
+     email:email
+    } 
+    dispatch(collectorData(fd , setCheck , setLoading));
+  }
+
   return (
     <>
+    {loading?<div id='loader2'><ReactBootStrap.Spinner animation="border" id="spinner2"/></div>:null}
       <Container fluid>
         <Row>
           <Col md="8">
-            <Card>
+            <Card style={{width:"70vw"}}>
               <Card.Header>
-                <Card.Title as="h4">Edit Profile</Card.Title>
+                <Card.Title as="h4" style={{fontWeight:400}}>Change Role</Card.Title>
               </Card.Header>
               <Card.Body>
-                <Form>
+                <p style={{fontWeight:200}}>Make someone a collector so that he/she can collect the items donated by the students in the hostel libraries and other places else let he/she be a user.</p>
+                <Form  style={{marginRight:"15px"}} onSubmit={handleSubmit}>
                   <Row>
                     <Col className="pr-1" md="5">
                       <Form.Group>
-                        <label>Company (disabled)</label>
+                        <label style={{fontWeight:400}}>Email Address</label>
                         <Form.Control
-                          defaultValue="Creative Code Inc."
-                          disabled
-                          placeholder="Company"
-                          type="text"
+                        value={email}
+                        onChange={handleMail}
+                          placeholder="Enter Email Address"
+                          type="email"
                         ></Form.Control>
                       </Form.Group>
                     </Col>
-                    <Col className="px-1" md="3">
+                    {/* <Col className="px-1" md="3">
                       <Form.Group>
                         <label>Username</label>
                         <Form.Control
@@ -46,8 +95,8 @@ function User() {
                           type="text"
                         ></Form.Control>
                       </Form.Group>
-                    </Col>
-                    <Col className="pl-1" md="4">
+                    </Col> */}
+                    {/* <Col className="pl-1" md="4">
                       <Form.Group>
                         <label htmlFor="exampleInputEmail1">
                           Email address
@@ -57,10 +106,10 @@ function User() {
                           type="email"
                         ></Form.Control>
                       </Form.Group>
-                    </Col>
+                    </Col> */}
                   </Row>
-                  <Row>
-                    <Col className="pr-1" md="6">
+                  {/* <Row> */}
+                    {/* <Col className="pr-1" md="6">
                       <Form.Group>
                         <label>First Name</label>
                         <Form.Control
@@ -69,8 +118,8 @@ function User() {
                           type="text"
                         ></Form.Control>
                       </Form.Group>
-                    </Col>
-                    <Col className="pl-1" md="6">
+                    </Col> */}
+                    {/* <Col className="pl-1" md="6">
                       <Form.Group>
                         <label>Last Name</label>
                         <Form.Control
@@ -79,9 +128,9 @@ function User() {
                           type="text"
                         ></Form.Control>
                       </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row>
+                    </Col> */}
+                  {/* </Row> */}
+                  {/* <Row>
                     <Col md="12">
                       <Form.Group>
                         <label>Address</label>
@@ -92,8 +141,8 @@ function User() {
                         ></Form.Control>
                       </Form.Group>
                     </Col>
-                  </Row>
-                  <Row>
+                  </Row> */}
+                  {/* <Row>
                     <Col className="pr-1" md="4">
                       <Form.Group>
                         <label>City</label>
@@ -123,8 +172,8 @@ function User() {
                         ></Form.Control>
                       </Form.Group>
                     </Col>
-                  </Row>
-                  <Row>
+                  </Row> */}
+                  {/* <Row>
                     <Col md="12">
                       <Form.Group>
                         <label>About Me</label>
@@ -138,20 +187,20 @@ function User() {
                         ></Form.Control>
                       </Form.Group>
                     </Col>
-                  </Row>
+                  </Row> */}
                   <Button
+                  style={{marginTop:"25px" , marginBottom:"25px" , backgroundColor:" #109380" , border:"none"}}
                     className="btn-fill pull-right"
                     type="submit"
-                    variant="info"
                   >
-                    Update Profile
+                  Change
                   </Button>
-                  <div className="clearfix"></div>
+                  {/* <div className="clearfix"></div> */}
                 </Form>
               </Card.Body>
             </Card>
           </Col>
-          <Col md="4">
+          {/* <Col md="4">
             <Card className="card-user">
               <div className="card-image">
                 <img
@@ -205,11 +254,12 @@ function User() {
                 </Button>
               </div>
             </Card>
-          </Col>
+          </Col> */}
         </Row>
       </Container>
+      <ToastContainer />
     </>
   );
 }
 
-export default User;
+export default Role;

@@ -16,7 +16,7 @@
 
 */
 import Dashboard from "views/Dashboard.js";
-import UserProfile from "views/UserProfile.js";
+import Role from "views/Role.js";
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
 import Icons from "views/Icons.js";
@@ -40,13 +40,13 @@ const dashboardRoutes = [
     component: Dashboard,
     layout: "/admin"
   },
-  // {
-  //   path: "/user",
-  //   name: "User Profile",
-  //   icon: "nc-icon nc-circle-09",
-  //   component: UserProfile,
-  //   layout: "/admin"
-  // },
+  {
+    path: "/collector",
+    name: "Role",
+    icon: "nc-icon nc-circle-09",
+    component: Role,
+    layout: "/admin"
+  },
   {
     path: "/table",
     name: "Products",
