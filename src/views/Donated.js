@@ -20,7 +20,7 @@ import { rejectData } from 'redux/actions/ItemsAction';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function Collected(){
+function Donated(){
 
 const [check , setCheck] = useState(0);
 const [check2 , setCheck2] = useState(0);
@@ -188,5 +188,5 @@ return(<>
 <ToastContainer />
 </>)
 }
-export default Collected;
+export default Donated;
 

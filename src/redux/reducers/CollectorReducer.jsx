@@ -1,6 +1,7 @@
 const initial={
     response2:'',
-    users:''
+    users:'' ,
+    topDonors:''
  };
  
  const collectorReducer =(state=initial 
@@ -25,6 +26,13 @@ const initial={
             console.log(action.payload.data.users);
             return {
                users:action.payload.data.users
+            }
+         }
+         case "DonorList" :{
+            console.log(action.payload);
+            console.log(action.payload.data.topDonors);
+            return {
+               topDonors:action.payload.data.topDonors
             }
          }
           default: return null;

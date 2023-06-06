@@ -26,6 +26,8 @@ import Approved from "views/Approved";
 import tickimg from './assets/img/tick.svg'
 import Rejected from "views/Rejected";
 import Collector from "views/Collector";
+import Collected from "views/Collected";
+import Donor from "views/HighestDonor";
 
 const dashboardRoutes = [
 
@@ -62,7 +64,7 @@ const dashboardRoutes = [
     path: "/collected",
     name: "Collected Items",
     icon: "nc-icon nc-planet", 
-    component: Rejected,
+    component: Collected,
     layout: "/admin"
   },
   {
@@ -75,8 +77,15 @@ const dashboardRoutes = [
   {
     path: "/collector",
     name: "Collectors",
-    icon: "nc-icon nc-circle-09",
+    icon: "nc-icon nc-single-02",
     component: Collector,
+    layout: "/admin"
+  },
+  {
+    path: "/donor",
+    name: "Donors",
+    icon: "nc-icon nc-tap-01",
+    component: Donor,
     layout: "/admin"
   },
   // {

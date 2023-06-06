@@ -27,6 +27,13 @@ const initial={
                items:action.payload.data.items
             }
          }
+         case "CollectedItems" :{
+            console.log(action.payload);
+            console.log(action.payload.data.items);
+            return {
+               items:action.payload.data.items
+            }
+         }
      case "Approve" :{
         console.log(action.payload);
         return null
