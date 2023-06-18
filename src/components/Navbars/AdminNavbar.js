@@ -16,12 +16,17 @@
 
 */
 import React, { Component } from "react";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Navbar, Container, Nav, Dropdown, Button } from "react-bootstrap";
-
 import routes from "routes.js";
+import { useHistory } from "react-router-dom";
+import { Dialog , DialogTitle, Box,DialogContent , DialogActions, DialogContentText
+} from '@material-ui/core';
 
 function Header() {
+  const[showDialog , setShowDialog] = useState(false);
+  const history =useHistory();
   const location = useLocation();
   const mobileSidebarToggle = (e) => {
     e.preventDefault();
@@ -43,6 +48,15 @@ function Header() {
     }
     return "Brand";
   };
+
+  function logout(){
+    setShowDialog(true);
+// history.push('/');
+// localStorage.removeItem("access");
+  }
+
+
+  const closeDialog = () => setShowDialog (false);
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
@@ -198,12 +212,25 @@ function Header() {
                 href="#pablo"
                 onClick={(e) => e.preventDefault()}
               >
-                <span className="no-icon">Log out</span>
+                <span className="no-icon" onClick={logout}>Log out</span>
               </Nav.Link>
             </Nav.Item>
           </Nav>
         </Navbar.Collapse>
       </Container>
+      <Dialog open={showDialog} onClose={closeDialog}>
+{/* <DialogTitle>Do you Really want to Logout?? </DialogTitle> */}
+<DialogContent>
+  <DialogContentText>
+  Do you Really want to Logout?? 
+  </DialogContentText>
+  <button style={{border:"none" , backgroundColor:"white" , color:"#109380"}} onClick={closeDialog}>Cancel</button>
+  <button style={{margin:"10px 15px 10px 15px" , border:"none" , backgroundColor:"#109380" , color:"white", padding:"0 10px" , borderRadius:"5px"}} onClick={()=>{
+    history.push('/');
+    localStorage.removeItem("access");
+  }}>Yes</button>
+</DialogContent>
+</Dialog>
     </Navbar>
   );
 }

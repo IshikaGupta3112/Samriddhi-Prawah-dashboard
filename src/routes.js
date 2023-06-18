@@ -28,6 +28,7 @@ import Rejected from "views/Rejected";
 import Collector from "views/Collector";
 import Collected from "views/Collected";
 import Donor from "views/HighestDonor";
+import Donated from "views/Donated";
 
 const dashboardRoutes = [
 
@@ -40,7 +41,7 @@ const dashboardRoutes = [
   // },
 
   {
-    path: "/table",
+    path: "/pending",
     name: "Pending Items",
     icon: "nc-icon nc-notes",
     component: Pending,
@@ -65,6 +66,13 @@ const dashboardRoutes = [
     name: "Collected Items",
     icon: "nc-icon nc-planet", 
     component: Collected,
+    layout: "/admin"
+  },
+  {
+    path: "/donated",
+    name: "Donated Items",
+    icon: "nc-icon nc-air-baloon", 
+    component: Donated,
     layout: "/admin"
   },
   {

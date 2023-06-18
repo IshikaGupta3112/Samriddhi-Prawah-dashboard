@@ -1,5 +1,6 @@
 const initial={
-   response1:''
+   response1:'' , 
+   isUser:false
 };
 
 const authreducer =(state=initial 
@@ -10,8 +11,11 @@ const authreducer =(state=initial
         if(action.payload.data){
             localStorage.setItem("access" , action.payload.data.accessToken);
             console.log(localStorage.getItem("access"));
+           return{
+            isUser:action.payload
+           }
         }
-        return {
+       else return {
             response1:action.payload.response.data && action.payload.response.data.msg
         }
     }

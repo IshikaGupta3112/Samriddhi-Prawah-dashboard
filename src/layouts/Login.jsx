@@ -20,8 +20,6 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // const [correctMail, setCorrectMail] = useState(false);
-
   const [show, setShow] = useState(false);
 
   const [loading, setLoading] = useState(false);
@@ -30,7 +28,6 @@ function Login() {
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
   const dispatch = useDispatch();
-  // const fd = new FormData();
   const history = useHistory();
 
   const [check , setCheck]= useState(0);
@@ -46,16 +43,6 @@ useEffect(()=>{
     });
   }
 } ,[check]);
-   
-// useEffect(() => {
-//     if (rightmail.test(email)) {
-//       document.getElementById("emailerr").style.display = "none";
-//       setCorrectMail(true);
-//     } else if (email) {
-//       document.getElementById("emailerr").style.display = "block";
-//       setCorrectMail(false);
-//     }
-//   }, [email]);
 
   function showHide() {
     setShow(!show);
@@ -69,19 +56,13 @@ useEffect(()=>{
   }
   function handleSubmit(e) {
     e.preventDefault();
-    // localStorage.setItem("loginMail" , email);
-    // if (correctMail) {
       setLoading(true);
       setCheck(0);
-    //   fd.append("email" , email);
-    //   fd.append("password" , password);
-    //   console.log(fd);
     const fd={
       uname:email , 
       password:password
     }
       dispatch(logindata(fd,history,setCheck, setLoading));
-    // }
   }
 
   return (
@@ -114,7 +95,6 @@ useEffect(()=>{
                 required
               ></input>
               <img src={mailimg} id="mailimg"></img>
-              {/* <p id="emailerr">Invalid Email Address</p> */}
               <label htmlFor="password" id="formlabel">
                 Password
               </label>
@@ -141,7 +121,6 @@ useEffect(()=>{
                 />
               )}
               <p id="forgotlink">
-                {/* <Link to="/forgot">Forgot Password?</Link> */}
               </p>
             </div>
             <button type="submit" id="formbtn">

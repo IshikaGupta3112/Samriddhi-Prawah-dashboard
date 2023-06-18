@@ -1,7 +1,7 @@
 import axios from 'axios';
 import api from '../base.jsx';
 
-export const itemData =(setLoading ,setCheck) =>
+export const itemData =(n,setLoading ,setCheck) =>
 async (dispatch)=>{
     var accesstoken =localStorage.getItem("access")
   const config ={
@@ -9,7 +9,7 @@ async (dispatch)=>{
         Authorization:`Bearer ${accesstoken}`,
       }
     }
-    await axios.get("http://34.228.115.7:8080/api/admin/items?status=PENDING" , config)
+    await axios.get("http://34.228.115.7:8080/api/admin/items?status=PENDING&page="+n+"&limit=10" , config)
       .then((res)=>{
         setCheck(1);
           setLoading(false);
@@ -28,7 +28,7 @@ async (dispatch)=>{
       })
   }
 
-  export const approvedItems =(setLoading ,setCheck) =>
+  export const approvedItems =(n,setLoading ,setCheck) =>
 async (dispatch)=>{
     var accesstoken =localStorage.getItem("access")
   const config ={
@@ -36,7 +36,7 @@ async (dispatch)=>{
         Authorization:`Bearer ${accesstoken}`,
       }
     }
-    await axios.get("http://34.228.115.7:8080/api/admin/items?status=APPROVED" , config)
+    await axios.get("http://34.228.115.7:8080/api/admin/items?status=APPROVED&page="+n+"&limit=10" , config)
       .then((res)=>{
         setCheck(1);
           setLoading(false);
@@ -55,7 +55,7 @@ async (dispatch)=>{
       })
   }
 
-  export const collectedItems =(setLoading ,setCheck) =>
+  export const donatedItems =(n,setLoading ,setCheck) =>
   async (dispatch)=>{
       var accesstoken =localStorage.getItem("access")
     const config ={
@@ -63,7 +63,34 @@ async (dispatch)=>{
           Authorization:`Bearer ${accesstoken}`,
         }
       }
-      await axios.get("http://34.228.115.7:8080/api/admin/items/collected" , config)
+      await axios.get("http://34.228.115.7:8080/api/admin/items?status=DONATED&page="+n+"&limit=10" , config)
+        .then((res)=>{
+          setCheck(1);
+            setLoading(false);
+            dispatch(
+                {type:'DonatedItems' ,
+                payload :res}
+                )
+            })
+        .catch((err)=>{
+          setCheck(1);
+            setLoading(false);
+            dispatch(
+                {type:'DonatedItems' ,
+                payload :err}
+            )
+        })
+    }
+
+  export const collectedItems =(n,setLoading ,setCheck) =>
+  async (dispatch)=>{
+      var accesstoken =localStorage.getItem("access")
+    const config ={
+        headers:{
+          Authorization:`Bearer ${accesstoken}`,
+        }
+      }
+      await axios.get("http://34.228.115.7:8080/api/admin/items/collected?page="+n+"&limit=10" , config)
         .then((res)=>{
           setCheck(1);
             setLoading(false);
@@ -82,7 +109,7 @@ async (dispatch)=>{
         })
     }
 
-  export const rejectedItems =(setLoading ,setCheck) =>
+  export const rejectedItems =(n,setLoading ,setCheck) =>
   async (dispatch)=>{
       var accesstoken =localStorage.getItem("access")
     const config ={
@@ -90,7 +117,7 @@ async (dispatch)=>{
           Authorization:`Bearer ${accesstoken}`,
         }
       }
-      await axios.get("http://34.228.115.7:8080/api/admin/items?status=REJECTED" , config)
+      await axios.get("http://34.228.115.7:8080/api/admin/items?status=REJECTED&page="+n+"&limit=10" , config)
         .then((res)=>{
           setCheck(1);
             setLoading(false);

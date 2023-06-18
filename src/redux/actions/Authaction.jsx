@@ -7,7 +7,7 @@ async (dispatch)=>{
       .then((res)=>{
         setCheck(1);
           setLoading(false);
-          history.push("/admin/dashboard");
+          history.push("/admin/pending");
           dispatch(
               {type:'Login' ,
               payload :res}

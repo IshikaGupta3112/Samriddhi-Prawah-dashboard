@@ -6,6 +6,8 @@ import cross from '../assets/img/cross.svg'
 import eye from '../assets/img/eye.svg';
 import image from '../assets/img/img.svg';
 import collect from '../assets/img/collect.svg'
+import back from '../assets/img/back.svg'
+import forward from '../assets/img/forward.svg'
 import { Dialog , DialogTitle, Box,DialogContent , DialogActions, DialogContentText
 } from '@material-ui/core';
 import { tableCustomStyles } from './CustomStyles';
@@ -22,6 +24,7 @@ import { rejectData } from 'redux/actions/ItemsAction';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {Select, MenuItem} from "@mui/material";
+import store from 'redux/store';
  
 function Approved(){
 
@@ -32,19 +35,44 @@ const [check4, setCheck4] = useState(0);
 const[loading , setLoading] = useState(true);
 const[list1 , setList1] = useState();
 const [object , setObject] = useState();
+const [n , setN] = useState(1);
+const [pages , setPages] = useState();
 
 const list =useSelector((s)=>s.itemReducer);
 
   const dispatch = useDispatch();
 
   useEffect(()=>{
-    dispatch(approvedItems(setLoading , setCheck ));
+    console.log(n);
+    setCheck(0);
+    setLoading(true);
+    dispatch(approvedItems(n,setLoading , setCheck ));
+    if(n===1){
+       document.getElementById('backimg').style.display='none'; 
+       document.getElementById('frontimg').style.display='block'; 
+      }
+      else if(n===pages){
+        document.getElementById('frontimg').style.display='none'; 
+        document.getElementById('backimg').style.display='block'; 
+      }
+      else{
+        document.getElementById('backimg').style.display='block'; 
+        document.getElementById('frontimg').style.display='block'; 
+      }
+    } , [n])
+
+  useEffect(()=>{
+    dispatch(approvedItems(n ,setLoading , setCheck ));
     },[])
 
     useEffect(()=>{
       if(check==1){
      console.log(list.items);
      setList1(list.items);
+     setPages(list.pages);
+     if(list.pages===1){
+      document.getElementById('navigationDiv').style.display='none'
+     }
       }
       },[check])
 
@@ -99,21 +127,35 @@ const list =useSelector((s)=>s.itemReducer);
     },
     {
       name:"Collect",
-      cell:(row)=><Select onChange={collect} id={row._id} onClick={storeId}
+      selector:(row)=><>
+      <button id={row._id} className='menuButton' onClick={(e)=>{console.log(e.target.id);
+       document.getElementById("demo").innerHTML = "<select><option value='1'>One</option></select>";
+      }}>
+      Collect
+      <p id='demo'></p>
+      {/* <Select id='select' onClick={(e)=>console.log(e.target.id)}>
+        <option value='COLLECTED_BH1'>BH1</option>
+      </Select> */}
+      </button>
+      {/* {(row.status=='APPROVED')? */}
+
+      {/* <button id={row._id} onClick={storeId} className='collectPara'>Collect</button><Select className='selectPara' onChange={collect} id={row._id} disabled
               sx={{      
                 width: 100,
                 height: 30,
               }}
             >
-              <MenuItem value='COLLECTED_BH1' id={row._id}>BH1</MenuItem>
-              <MenuItem value='COLLECTED_BH2'id={row._id}>BH2</MenuItem>
-              <MenuItem value='COLLECTED_BH3'id={row._id}>BH3</MenuItem>
-              <MenuItem value='COLLECTED_GH1'id={row._id}>GH1</MenuItem>
-              <MenuItem value='COLLECTED_GH2'id={row._id}>GH2</MenuItem>
-              <MenuItem value='COLLECTED_GH3'id={row._id}>GH3</MenuItem>
-             </Select>
+              <MenuItem value='COLLECTED_BH1'>BH1</MenuItem>
+              <MenuItem value='COLLECTED_BH2'>BH2</MenuItem>
+              <MenuItem value='COLLECTED_BH3'>BH3</MenuItem>
+              <MenuItem value='COLLECTED_GH1'>GH1</MenuItem>
+              <MenuItem value='COLLECTED_GH2'>GH2</MenuItem>
+              <MenuItem value='COLLECTED_GH3'>GH3</MenuItem>
+             </Select>    */} 
+              </> 
   
-    },
+},      
+       
     {
       name:"Status",
       selector:(data)=>data.status
@@ -139,6 +181,19 @@ const list =useSelector((s)=>s.itemReducer);
     dispatch(approveData(fd ,setCheck2 , setLoading));
   }
 
+  function backFunc(){
+    setN(n-1);
+  }
+  function forwardFunc(){
+    console.log(pages);
+  if(n<pages){
+  setN(n+1);
+  }
+  else{
+    document.getElementById('frontimg').style.display='none';
+  }
+  }
+
   function collect(e){
     console.log(e.target.value);
     setLoading(true);
@@ -146,7 +201,7 @@ const list =useSelector((s)=>s.itemReducer);
    const fd={
       status:e.target.value
     } 
-    dispatch(collectItem(fd ,setCheck4 , setLoading));
+    // dispatch(collectItem(fd ,setCheck4 , setLoading));
   }
 
   function storeId(e){
@@ -232,8 +287,11 @@ return(<>
   </DialogContentText>
 </DialogContent>
 </Dialog>
-  <DataTable columns={columns} data={list1} pagination customStyles={tableCustomStyles} 
+  <DataTable columns={columns} data={list1} customStyles={tableCustomStyles} 
   />
+  <div id='navigationDiv' style={{backgroundColor:"white", position: 'fixed' , bottom:'0' , width:'79.9vw' , display:'flex' , justifyContent:"right"  , padding:'6px 20px 6px 0'}}>
+<><img style={{cursor:'pointer'}} id='backimg' onClick={backFunc} src={back} /><pre>   </pre><img style={{cursor:'pointer'}} onClick={forwardFunc} id='frontimg' src={forward}></img></>
+  </div>
 <ToastContainer />
 </>)
 }

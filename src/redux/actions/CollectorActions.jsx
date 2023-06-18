@@ -28,7 +28,7 @@ async (dispatch)=>{
       })
   }
 
-  export const collectorList =(setCheck , setLoading) =>
+  export const collectorList =(n,setCheck , setLoading) =>
 async (dispatch)=>{
     var accesstoken =localStorage.getItem("access")
   const config ={
@@ -36,7 +36,7 @@ async (dispatch)=>{
         Authorization:`Bearer ${accesstoken}`,
       }
     }
-    await axios.get("http://34.228.115.7:8080/api/admin/users?role=COLLECTOR", config)
+    await axios.get("http://34.228.115.7:8080/api/admin/users?role=COLLECTOR&page="+n+"&limit=10", config)
       .then((res)=>{
         setCheck(1);
         setLoading(false);

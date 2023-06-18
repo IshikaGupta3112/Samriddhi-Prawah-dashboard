@@ -28,18 +28,18 @@ function Sidebar({ color, image, routes }) {
     return location.pathname.indexOf(routeName) > -1 ? "active" : "";
   };
   return (
-    <div className="sidebar" data-image={image} data-color={color}>
-      <div className="sidebar-wrapper">
-        <div className="logo d-flex align-items-center justify-content-start">
-          <a
+    <div className="sidebar" style={{backgroundColor:"#109380"}}>
+      <div className="sidebar-wrapper" style={{backgroundColor:"#109380"}}>
+        <div className="logo d-flex align-items-center justify-content-start" style={{backgroundColor:"white" , borderRight:"0.01px solid black"}} >
+          {/* <a
             href="https://www.creative-tim.com?ref=lbd-sidebar"
             className="simple-text logo-mini mx-1"
-          >
-            <div className="logo-img">
+          > */}
+            <div className="logo-img" style={{marginRight:"8px"}}>
               <img src={logo} alt="..." />
             </div>
-          </a>
-          <a className="simple-text">
+          {/* </a> */}
+          <a className="simple-text" style={{color:"black"}}>
            Samriddhi Prawah
           </a>
         </div>

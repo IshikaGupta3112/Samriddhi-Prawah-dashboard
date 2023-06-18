@@ -19,6 +19,8 @@ import { approveData } from 'redux/actions/ItemsAction';
 import { rejectData } from 'redux/actions/ItemsAction';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import back from '../assets/img/back.svg'
+import forward from '../assets/img/forward.svg'
 
 function Pending(){
 
@@ -28,19 +30,44 @@ const [check3 , setCheck3] = useState(0);
 const[loading , setLoading] = useState(true);
 const[list1 , setList1] = useState();
 const [object , setObject] = useState();
+const [n , setN] = useState(1);
+const [pages , setPages] = useState();
 
 const list =useSelector((s)=>s.itemReducer);
 
   const dispatch = useDispatch();
 
   useEffect(()=>{
-    dispatch(itemData(setLoading , setCheck ));
+    console.log(n);
+    setCheck(0);
+    setLoading(true);
+    dispatch(itemData(n,setLoading , setCheck ));
+    if(n===1){
+       document.getElementById('backimg').style.display='none'; 
+       document.getElementById('frontimg').style.display='block'; 
+      }
+      else if(n===pages){
+        document.getElementById('frontimg').style.display='none'; 
+        document.getElementById('backimg').style.display='block'; 
+      }
+      else{
+        document.getElementById('backimg').style.display='block'; 
+        document.getElementById('frontimg').style.display='block'; 
+      }
+    } , [n])
+
+  useEffect(()=>{
+    dispatch(itemData(n,setLoading , setCheck ));
     },[])
 
     useEffect(()=>{
       if(check==1){
      console.log(list.items);
      setList1(list.items);
+     setPages(list.pages);
+     if(list.pages===1){
+      document.getElementById('navigationDiv').style.display='none'
+     }
       }
       },[check])
 
@@ -93,6 +120,18 @@ const list =useSelector((s)=>s.itemReducer);
     </>
     },
   ]
+  function backFunc(){
+    setN(n-1);
+  }
+  function forwardFunc(){
+    console.log(pages);
+  if(n<pages){
+  setN(n+1);
+  }
+  else{
+    document.getElementById('frontimg').style.display='none';
+  }
+  }
 
   function approve(e){
     console.log('approved');
@@ -183,8 +222,11 @@ return(<>
   </DialogContentText>
 </DialogContent>
 </Dialog>
-  <DataTable columns={columns} data={list1} pagination customStyles={tableCustomStyles} 
+  <DataTable columns={columns} data={list1} customStyles={tableCustomStyles} 
   />
+  <div id='navigationDiv' style={{backgroundColor:"white", position: 'fixed' , bottom:'0' , width:'79.9vw' , display:'flex' , justifyContent:"right"  , padding:'6px 20px 6px 0'}}>
+<><img style={{cursor:'pointer'}} id='backimg' onClick={backFunc} src={back} /><pre>   </pre><img style={{cursor:'pointer'}} onClick={forwardFunc} id='frontimg' src={forward}></img></>
+  </div>
 <ToastContainer />
 </>)
 }

@@ -5,6 +5,8 @@ import tick from '../assets/img/tick.svg';
 import cross from '../assets/img/cross.svg'
 import eye from '../assets/img/eye.svg';
 import image from '../assets/img/img.svg';
+import back from '../assets/img/back.svg'
+import forward from '../assets/img/forward.svg'
 import { Dialog , DialogTitle, Box,DialogContent , DialogActions, DialogContentText
 } from '@material-ui/core';
 import { tableCustomStyles } from './CustomStyles';
@@ -28,21 +30,48 @@ const [check3 , setCheck3] = useState(0);
 const[loading , setLoading] = useState(true);
 const[list1 , setList1] = useState();
 const [object , setObject] = useState();
+const [pages , setPages] = useState();
 
 const list =useSelector((s)=>s.itemReducer);
+
+const [n , setN] = useState(1);
+
+useEffect(()=>{
+console.log(n);
+setCheck(0);
+setLoading(true);
+dispatch(collectedItems(n,setLoading , setCheck ));
+if(n===1){
+   document.getElementById('backimg').style.display='none'; 
+   document.getElementById('frontimg').style.display='block'; 
+  }
+  else if(n===pages){
+    document.getElementById('frontimg').style.display='none'; 
+    document.getElementById('backimg').style.display='block'; 
+  }
+  else{
+    document.getElementById('backimg').style.display='block'; 
+    document.getElementById('frontimg').style.display='block'; 
+  }
+} , [n])
 
   const dispatch = useDispatch();
 
   useEffect(()=>{
-    dispatch(collectedItems(setLoading , setCheck ));
+    dispatch(collectedItems(n,setLoading , setCheck ));
     },[])
 
     useEffect(()=>{
       if(check==1){
      console.log(list.items);
      setList1(list.items);
+     setPages(list.pages);
+     if(list.pages===1){
+      document.getElementById('navigationDiv').style.display='none'
+     }
       }
       },[check])
+
 
       useEffect(()=>{
         console.log(check2);
@@ -94,6 +123,18 @@ const list =useSelector((s)=>s.itemReducer);
     },
   ]
 
+  function backFunc(){
+    setN(n-1);
+  }
+  function forwardFunc(){
+    console.log(pages);
+  if(n<pages){
+  setN(n+1);
+  }
+  else{
+    document.getElementById('frontimg').style.display='none';
+  }
+  }
   function approve(e){
     console.log('approved');
     console.log(e.target.id);
@@ -178,14 +219,16 @@ return(<>
   <span style={{fontWeight:"bold"}}>Date Of Donation      : </span><span>{}</span>
   <br></br>
   <span style={{fontWeight:"bold"}}>Time of Donation      : </span><span>{}</span>
-  </pre>:null}
-   
+  </pre>:null}  
   </DialogContentText>
 </DialogContent>
 </Dialog>
-  <DataTable columns={columns} data={list1} pagination customStyles={tableCustomStyles} 
+  <DataTable columns={columns} data={list1} customStyles={tableCustomStyles} 
   />
 <ToastContainer />
+<div id='navigationDiv' style={{backgroundColor:"white", position: 'fixed' , bottom:'0' , width:'79.9vw' , display:'flex' , justifyContent:"right"  , padding:'6px 20px 6px 0'}}>
+<><img style={{cursor:'pointer'}} id='backimg' onClick={backFunc} src={back} /><pre>   </pre><img style={{cursor:'pointer'}} onClick={forwardFunc} id='frontimg' src={forward}></img></>
+  </div>
 </>)
 }
 export default Collected;

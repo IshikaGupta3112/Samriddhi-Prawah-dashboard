@@ -48,7 +48,7 @@ const list =useSelector((s)=>s.collectorReducer);
 
 return(<>
 {loading?<div id='loader2'><ReactBootStrap.Spinner animation="border" id="spinner2"/></div>:null}
-  <DataTable columns={columns} data={list1} pagination customStyles={tableCustomStyles} 
+  <DataTable columns={columns} data={list1} customStyles={tableCustomStyles} 
   />
 </>)
 }

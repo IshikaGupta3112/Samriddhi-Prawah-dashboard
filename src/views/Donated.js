@@ -3,13 +3,15 @@ import DataTable from 'react-data-table-component';
 import '../layouts/Table.css';
 import tick from '../assets/img/tick.svg';
 import cross from '../assets/img/cross.svg'
+import back from '../assets/img/back.svg'
+import forward from '../assets/img/forward.svg'
 import eye from '../assets/img/eye.svg';
 import image from '../assets/img/img.svg';
 import { Dialog , DialogTitle, Box,DialogContent , DialogActions, DialogContentText
 } from '@material-ui/core';
 import { tableCustomStyles } from './CustomStyles';
 import { useDispatch } from 'react-redux';
-import { collectedItems} from 'redux/actions/ItemsAction';
+import { donatedItems} from 'redux/actions/ItemsAction';
 import { useEffect } from 'react';
 import * as ReactBootStrap from "react-bootstrap";
 import { useSelector } from 'react-redux';
@@ -28,19 +30,44 @@ const [check3 , setCheck3] = useState(0);
 const[loading , setLoading] = useState(true);
 const[list1 , setList1] = useState();
 const [object , setObject] = useState();
+const [n , setN] = useState(1);
+const [pages , setPages] = useState();
 
 const list =useSelector((s)=>s.itemReducer);
 
   const dispatch = useDispatch();
 
   useEffect(()=>{
-    dispatch(collectedItems(setLoading , setCheck ));
+    console.log(n);
+    setCheck(0);
+    setLoading(true);
+    dispatch(donatedItems(n,setLoading , setCheck ));
+    if(n===1){
+       document.getElementById('backimg').style.display='none'; 
+       document.getElementById('frontimg').style.display='block'; 
+      }
+      else if(n===pages){
+        document.getElementById('frontimg').style.display='none'; 
+        document.getElementById('backimg').style.display='block'; 
+      }
+      else{
+        document.getElementById('backimg').style.display='block'; 
+        document.getElementById('frontimg').style.display='block'; 
+      }
+    } , [n])
+
+  useEffect(()=>{
+    dispatch(donatedItems(n,setLoading , setCheck ));
     },[])
 
     useEffect(()=>{
       if(check==1){
      console.log(list.items);
      setList1(list.items);
+     setPages(list.pages);
+     if(list.pages===1){
+      document.getElementById('navigationDiv').style.display='none'
+     }
       }
       },[check])
 
@@ -78,10 +105,6 @@ const list =useSelector((s)=>s.itemReducer);
       selector:(data)=><img src={image} id={data._id} className='tvimg' onClick={imgClick}/>
     },
     {
-      name:"Action",
-      cell:(row)=><>{(row.status!=='APPROVED')?<img src={tick} onClick={approve} id={row._id} className='tickimg'/>:null}{(row.status!=='REJECTED')?<img src={cross} onClick={disapprove} id={row._id} className='tickimg'/>:null}</>
-    },
-    {
       name:"Status",
       selector:(data)=>data.status
     },
@@ -94,29 +117,6 @@ const list =useSelector((s)=>s.itemReducer);
     },
   ]
 
-  function approve(e){
-    console.log('approved');
-    console.log(e.target.id);
-    localStorage.setItem("productId2" , e.target.id);
-    setLoading(true);
-    setCheck2(0);
-   const fd={
-      status:"APPROVED"
-    } 
-    dispatch(approveData(fd ,setCheck2 , setLoading));
-  }
-  function disapprove(e){
-    console.log('rejected');
-    console.log(e.target.id);
-    localStorage.setItem("productId2" , e.target.id);
-    setLoading(true);
-    setCheck3(0);
-   const fd={
-      status:"REJECTED"
-    } 
-    dispatch(rejectData(fd ,setCheck3 , setLoading));
-  }
-
   function view(e){
    setShowDialog2(true);
    console.log(e.target.id);
@@ -124,6 +124,18 @@ const list =useSelector((s)=>s.itemReducer);
   var productId = localStorage.getItem("productId");
   setObject(list1.find(obj => obj._id === productId));
    console.log(object);
+  }
+  function backFunc(){
+    setN(n-1);
+  }
+  function forwardFunc(){
+    console.log(pages);
+  if(n<pages){
+  setN(n+1);
+  }
+  else{
+    document.getElementById('frontimg').style.display='none';
+  }
   }
 
   const[showDialog , setShowDialog] = useState(false);
@@ -183,8 +195,11 @@ return(<>
   </DialogContentText>
 </DialogContent>
 </Dialog>
-  <DataTable columns={columns} data={list1} pagination customStyles={tableCustomStyles} 
+  <DataTable columns={columns} data={list1} customStyles={tableCustomStyles} 
   />
+  <div id='navigationDiv' style={{backgroundColor:"white", position: 'fixed' , bottom:'0' , width:'79.9vw' , display:'flex' , justifyContent:"right"  , padding:'6px 20px 6px 0'}}>
+<><img style={{cursor:'pointer'}} id='backimg' onClick={backFunc} src={back} /><pre>   </pre><img style={{cursor:'pointer'}} onClick={forwardFunc} id='frontimg' src={forward}></img></>
+  </div>
 <ToastContainer />
 </>)
 }
