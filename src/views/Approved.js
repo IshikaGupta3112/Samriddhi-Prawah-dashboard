@@ -23,8 +23,7 @@ import { approveData } from 'redux/actions/ItemsAction';
 import { rejectData } from 'redux/actions/ItemsAction';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {Select, MenuItem} from "@mui/material";
-import store from 'redux/store';
+import './a.css'
  
 function Approved(){
 
@@ -111,7 +110,7 @@ const list =useSelector((s)=>s.itemReducer);
       object.status="REJECTED"
     }
   } ,[check3]);
-  
+
   const columns =[
     {
       name:"Product Name",
@@ -127,31 +126,16 @@ const list =useSelector((s)=>s.itemReducer);
     },
     {
       name:"Collect",
-      selector:(row)=><>
-      <button id={row._id} className='menuButton' onClick={(e)=>{console.log(e.target.id);
-       document.getElementById("demo").innerHTML = "<select><option value='1'>One</option></select>";
-      }}>
-      Collect
-      <p id='demo'></p>
-      {/* <Select id='select' onClick={(e)=>console.log(e.target.id)}>
+      cell:(row)=><>
+            <select id={row._id} onClick={storeId} onChange={collect}>
+        <option value='--select--'>--select--</option>
         <option value='COLLECTED_BH1'>BH1</option>
-      </Select> */}
-      </button>
-      {/* {(row.status=='APPROVED')? */}
-
-      {/* <button id={row._id} onClick={storeId} className='collectPara'>Collect</button><Select className='selectPara' onChange={collect} id={row._id} disabled
-              sx={{      
-                width: 100,
-                height: 30,
-              }}
-            >
-              <MenuItem value='COLLECTED_BH1'>BH1</MenuItem>
-              <MenuItem value='COLLECTED_BH2'>BH2</MenuItem>
-              <MenuItem value='COLLECTED_BH3'>BH3</MenuItem>
-              <MenuItem value='COLLECTED_GH1'>GH1</MenuItem>
-              <MenuItem value='COLLECTED_GH2'>GH2</MenuItem>
-              <MenuItem value='COLLECTED_GH3'>GH3</MenuItem>
-             </Select>    */} 
+        <option value='COLLECTED_BH2'>BH2</option>
+        <option value='COLLECTED_BH3'>BH3</option>
+        <option value='COLLECTED_GH1'>GH1</option>
+        <option value='COLLECTED_GH2'>GH2</option>
+        <option value='COLLECTED_GH3'>GH3</option>
+      </select>
               </> 
   
 },      
@@ -201,7 +185,7 @@ const list =useSelector((s)=>s.itemReducer);
    const fd={
       status:e.target.value
     } 
-    // dispatch(collectItem(fd ,setCheck4 , setLoading));
+    dispatch(collectItem(fd ,setCheck4 , setLoading));
   }
 
   function storeId(e){
