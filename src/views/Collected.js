@@ -4,6 +4,7 @@ import '../layouts/Table.css';
 import tick from '../assets/img/tick.svg';
 import cross from '../assets/img/cross.svg'
 import eye from '../assets/img/eye.svg';
+import donateimg from '../assets/img/Donate.svg';
 import image from '../assets/img/img.svg';
 import back from '../assets/img/back.svg'
 import forward from '../assets/img/forward.svg'
@@ -21,12 +22,14 @@ import { approveData } from 'redux/actions/ItemsAction';
 import { rejectData } from 'redux/actions/ItemsAction';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { collectItem } from 'redux/actions/ItemsAction';
 
 function Collected(){
 
 const [check , setCheck] = useState(0);
 const [check2 , setCheck2] = useState(0);
 const [check3 , setCheck3] = useState(0);
+const [check4 , setCheck4] = useState(0);
 const[loading , setLoading] = useState(true);
 const[list1 , setList1] = useState();
 const [object , setObject] = useState();
@@ -84,6 +87,17 @@ if(n===1){
         object.status="APPROVED"
       }
     } ,[check2]);
+    useEffect(()=>{
+      console.log(check4);
+      if(check4==1){
+      toast.success("Donated ", {
+          position: toast.POSITION.TOP_RIGHT
+      });
+      var productId2=localStorage.getItem("productId2");
+      const object=list1.find(obj => obj._id === productId2);
+      object.status="DONATED"
+    }
+  } ,[check4]);
 
     useEffect(()=>{
       console.log(check3);
@@ -108,7 +122,7 @@ if(n===1){
     },
     {
       name:"Action",
-      cell:(row)=><>{(row.status!=='APPROVED')?<img src={tick} onClick={approve} id={row._id} className='tickimg'/>:null}{(row.status!=='REJECTED')?<img src={cross} onClick={disapprove} id={row._id} className='tickimg'/>:null}</>
+      cell:(row)=><>{(row.status!=='APPROVED')?<img src={tick} onClick={approve} id={row._id} className='tickimg'/>:null}{(row.status!=='REJECTED')?<img src={cross} onClick={disapprove} id={row._id} className='tickimg'/>:null}<img src={donateimg} onClick={donate} id={row._id} className='tickimg'/></>
     },
     {
       name:"Status",
@@ -145,6 +159,17 @@ if(n===1){
       status:"APPROVED"
     } 
     dispatch(approveData(fd ,setCheck2 , setLoading));
+  }
+  function donate(e){
+    console.log('donated');
+    console.log(e.target.id);
+    localStorage.setItem("productId2" , e.target.id);
+    setLoading(true);
+    setCheck4(0);
+   const fd={
+      status:"DONATED"
+    } 
+    dispatch(collectItem(fd ,setCheck4 , setLoading));
   }
   function disapprove(e){
     console.log('rejected');

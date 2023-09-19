@@ -9,7 +9,7 @@ async (dispatch)=>{
         Authorization:`Bearer ${accesstoken}`,
       }
     }
-    await axios.post("http://34.228.115.7:8080/api/admin/togglecollector",fd , config)
+    await axios.post("https://sampaw.devalan.tech/api/admin/togglecollector",fd , config)
       .then((res)=>{
         setCheck(1);
         setLoading(false);
@@ -36,7 +36,7 @@ async (dispatch)=>{
         Authorization:`Bearer ${accesstoken}`,
       }
     }
-    await axios.get("http://34.228.115.7:8080/api/admin/users?role=COLLECTOR&page="+n+"&limit=10", config)
+    await axios.get("https://sampaw.devalan.tech/api/admin/users?role=COLLECTOR&page="+n+"&limit=10", config)
       .then((res)=>{
         setCheck(1);
         setLoading(false);
@@ -63,7 +63,7 @@ async (dispatch)=>{
           Authorization:`Bearer ${accesstoken}`,
         }
       }
-      await axios.get("http://34.228.115.7:8080/api/admin/highestdonor", config)
+      await axios.get("https://sampaw.devalan.tech/api/admin/highestdonor", config)
         .then((res)=>{
           setCheck(1);
           setLoading(false);

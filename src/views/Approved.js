@@ -4,6 +4,7 @@ import '../layouts/Table.css';
 import tick from '../assets/img/tick.svg';
 import cross from '../assets/img/cross.svg'
 import eye from '../assets/img/eye.svg';
+import collect2 from '../assets/img/collect2.svg';
 import image from '../assets/img/img.svg';
 import collect from '../assets/img/collect.svg'
 import back from '../assets/img/back.svg'
@@ -127,7 +128,8 @@ const list =useSelector((s)=>s.itemReducer);
     {
       name:"Collect",
       cell:(row)=><>
-            <select id={row._id} onClick={storeId} onChange={collect}>
+      <img src={collect2} onClick={collect} id={row._id} className='tickimg'/>
+            {/* <select id={row._id} onClick={storeId} onChange={collect}>
         <option value='--select--'>--select--</option>
         <option value='COLLECTED_BH1'>BH1</option>
         <option value='COLLECTED_BH2'>BH2</option>
@@ -135,7 +137,7 @@ const list =useSelector((s)=>s.itemReducer);
         <option value='COLLECTED_GH1'>GH1</option>
         <option value='COLLECTED_GH2'>GH2</option>
         <option value='COLLECTED_GH3'>GH3</option>
-      </select>
+      </select> */}
               </> 
   
 },      
@@ -180,10 +182,12 @@ const list =useSelector((s)=>s.itemReducer);
 
   function collect(e){
     console.log(e.target.value);
+    console.log(e.target.id);
+    localStorage.setItem("productId2" , e.target.id);
     setLoading(true);
     setCheck4(0);
    const fd={
-      status:e.target.value
+      status:"COLLECTED_AKG"
     } 
     dispatch(collectItem(fd ,setCheck4 , setLoading));
   }
