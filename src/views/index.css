@@ -4,3 +4,6 @@ table{
 .table-hover{
     border:0.5 px solid grey
 }
+#logoutDiv{
+    padding: 30px 30px 20px 30px;
+}

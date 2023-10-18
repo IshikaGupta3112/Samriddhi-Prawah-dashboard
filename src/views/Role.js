@@ -82,7 +82,7 @@ useEffect(()=>{
                         value={email}
                         onChange={handleMail}
                           placeholder="Enter Email Address"
-                          type="email"
+                          type="email" required
                         ></Form.Control>
                       </Form.Group>
                     </Col>
@@ -189,8 +189,8 @@ useEffect(()=>{
                     </Col>
                   </Row> */}
                   <Button
-                  style={{marginTop:"25px" , marginBottom:"25px" , backgroundColor:" #109380" , border:"none"}}
-                    className="btn-fill pull-right"
+                  style={{marginTop:"25px" , marginBottom:"25px" , backgroundColor:" #109380" , border:"none" , width:"150px"}}
+                    className="btn-fill pull-right" 
                     type="submit"
                   >
                   Change

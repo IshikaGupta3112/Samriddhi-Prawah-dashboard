@@ -62,7 +62,7 @@ const list =useSelector((s)=>s.itemReducer);
     } , [n])
 
   useEffect(()=>{
-    dispatch(approvedItems(n ,setLoading , setCheck ));
+    dispatch(approvedItems(n ,setLoading , setCheck));
     },[])
 
     useEffect(()=>{

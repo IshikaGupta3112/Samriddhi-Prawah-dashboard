@@ -9,7 +9,7 @@ async (dispatch)=>{
         Authorization:`Bearer ${accesstoken}`,
       }
     }
-    await axios.get("https://sampaw.devalan.tech/api/admin/items?status=PENDING&page="+n+"&limit=10" , config)
+    await axios.get("https://sempaw.onrender.com/api/admin/items?status=PENDING&page="+n+"&limit=10" , config)
       .then((res)=>{
         setCheck(1);
           setLoading(false);
@@ -36,7 +36,7 @@ async (dispatch)=>{
         Authorization:`Bearer ${accesstoken}`,
       }
     }
-    await axios.get("https://sampaw.devalan.tech/api/admin/items?status=APPROVED&page="+n+"&limit=10" , config)
+    await axios.get("https://sempaw.onrender.com/api/admin/items?status=APPROVED&page="+n+"&limit=10" , config)
       .then((res)=>{
         setCheck(1);
           setLoading(false);
@@ -63,7 +63,7 @@ async (dispatch)=>{
           Authorization:`Bearer ${accesstoken}`,
         }
       }
-      await axios.get("https://sampaw.devalan.tech/api/admin/items?status=DONATED&page="+n+"&limit=10" , config)
+      await axios.get("https://sempaw.onrender.com/api/admin/items?status=DONATED&page="+n+"&limit=10" , config)
         .then((res)=>{
           setCheck(1);
             setLoading(false);
@@ -90,7 +90,7 @@ async (dispatch)=>{
           Authorization:`Bearer ${accesstoken}`,
         }
       }
-      await axios.get("https://sampaw.devalan.tech/api/admin/items/collected?page="+n+"&limit=10" , config)
+      await axios.get("https://sempaw.onrender.com/api/admin/items/collected?page="+n+"&limit=10" , config)
         .then((res)=>{
           setCheck(1);
             setLoading(false);
@@ -117,7 +117,7 @@ async (dispatch)=>{
           Authorization:`Bearer ${accesstoken}`,
         }
       }
-      await axios.get("https://sampaw.devalan.tech/api/admin/items?status=REJECTED&page="+n+"&limit=10" , config)
+      await axios.get("https://sempaw.onrender.com/api/admin/items?status=REJECTED&page="+n+"&limit=10" , config)
         .then((res)=>{
           setCheck(1);
             setLoading(false);
@@ -145,7 +145,7 @@ async (dispatch)=>{
         Authorization:`Bearer ${accesstoken}`,
       }
     }
-    await axios.patch("https://sampaw.devalan.tech/api/admin/status/"+productId2 ,fd, config)
+    await axios.patch("https://sempaw.onrender.com/api/admin/status/"+productId2 ,fd, config)
       .then((res)=>{
         setCheck2(1);
           setLoading(false);
@@ -173,7 +173,7 @@ async (dispatch)=>{
           Authorization:`Bearer ${accesstoken}`,
         }
       }
-      await axios.patch("https://sampaw.devalan.tech/api/admin/status/"+productId2 ,fd, config)
+      await axios.patch("https://sempaw.onrender.com/api/admin/status/"+productId2 ,fd, config)
         .then((res)=>{
           setCheck4(1);
             setLoading(false);
@@ -201,7 +201,7 @@ async (dispatch)=>{
         Authorization:`Bearer ${accesstoken}`,
       }
     }
-    await axios.patch("https://sampaw.devalan.tech/api/admin/status/"+productId2 ,fd, config)
+    await axios.patch("https://sempaw.onrender.com/api/admin/status/"+productId2 ,fd, config)
       .then((res)=>{
         setCheck3(1);
           setLoading(false);
@@ -219,3 +219,34 @@ async (dispatch)=>{
           )
       })
   }
+
+  export const donateData =(fd , setCheck4 , setLoading) =>
+  async (dispatch)=>{
+      var productId2 =localStorage.getItem("productId2");
+      var accesstoken =localStorage.getItem("access");
+    const config ={
+        headers:{
+          Authorization:`Bearer ${accesstoken}`,
+        }
+      }
+      await axios.patch("https://sempaw.onrender.com/api/admin/donate/"+productId2 ,fd,config)
+        .then((res)=>{
+          setCheck4(1);
+            setLoading(false);
+            dispatch(
+                {type:'Donated' ,
+                payload :res}
+                )
+            })
+        .catch((err)=>{
+          // setCheck2(1);
+            setLoading(false);
+            dispatch(
+                {type:'Donated',
+                payload :err}
+            )
+        })
+    }
+  
+  
+  

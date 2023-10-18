@@ -220,7 +220,7 @@ function Header() {
       </Container>
       <Dialog open={showDialog} onClose={closeDialog}>
 {/* <DialogTitle>Do you Really want to Logout?? </DialogTitle> */}
-<DialogContent>
+<DialogContent id='logoutDiv'>
   <DialogContentText>
   Do you Really want to Logout?? 
   </DialogContentText>

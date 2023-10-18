@@ -21,12 +21,15 @@ import { approveData } from 'redux/actions/ItemsAction';
 import { rejectData } from 'redux/actions/ItemsAction';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './a.css';
+import { collectItem } from 'redux/actions/ItemsAction';
 
 function Donated(){
 
 const [check , setCheck] = useState(0);
 const [check2 , setCheck2] = useState(0);
 const [check3 , setCheck3] = useState(0);
+// const [check4 , setCheck4] = useState(0);
 const[loading , setLoading] = useState(true);
 const[list1 , setList1] = useState();
 const [object , setObject] = useState();
@@ -115,8 +118,27 @@ const list =useSelector((s)=>s.itemReducer);
       <img src={eye} id={row._id} className='viewEye' onClick={view} />
     </>
     },
+    // {
+    //   name:"Change Status",
+    //   cell:(row)=>
+    //   <>
+    //   <img src={eye} id={row._id} className='viewEye' onClick={collect} />
+    // </>
+    // }
   ]
 
+  // function collect(e){
+  //   // console.log(e.target.value);
+  //   console.log(e.target.id);
+  //   localStorage.setItem("productId2" , e.target.id);
+  //   setLoading(true);
+  //   // setCheck4(0);
+  //  const fd={
+  //     status:"COLLECTED_AKG"
+  //   } 
+  //   dispatch(collectItem(fd ,setCheck4, setLoading));
+  // }
+  
   function view(e){
    setShowDialog2(true);
    console.log(e.target.id);
@@ -163,33 +185,16 @@ return(<>
         )):null}
       </Carousel>:null}
 </Dialog>
-<Dialog open={showDialog2} onClose={closeDialog2}>
-<DialogTitle>Student's Details</DialogTitle>
-<DialogContent>
+<Dialog open={showDialog2} onClose={closeDialog2} >
+<DialogTitle id='takenTitle'>Taken By: </DialogTitle>
+<DialogContent id='takenText'>
   <DialogContentText>
  {(object)?
   <pre>
-  <span style={{fontWeight:"bold"}}>Student's Name        : </span><span>{object.user.name}</span>
+  <span style={{fontWeight:"bold"}}>Name        : </span>{(object.acceptedBy)?<span>{object.acceptedBy.name}</span>:<span>Undefined</span>}
   <br></br>
-  <span style={{fontWeight:"bold"}}>Email                           : </span><span>{object.user.email}</span>
+  <span style={{fontWeight:"bold"}}>Email        : </span>{(object.acceptedBy)?<span>{object.acceptedBy.email}</span>:<span>Undefined</span>}
   <br></br>
-  <span style={{fontWeight:"bold"}}>Course                        : </span><span>{object.user.course}</span>
-  <br></br>
-  <span style={{fontWeight:"bold"}}>Branch                        : </span><span>{object.user.branch}</span>
-  <br></br>
-  <span style={{fontWeight:"bold"}}>Year                             : </span><span>{object.user.year}</span>
-  <br></br>
-  <span style={{fontWeight:"bold"}}>Phone No.                  : </span><span>{object.user.phone_no}</span>
-  <br></br>
-  <span style={{fontWeight:"bold"}}>Student's No              : </span><span>{object.user.student_no}</span>
-  <br></br>
-  <span style={{fontWeight:"bold"}}>Place of Residence   : </span><span>{object.user.POR}</span>
-  <br></br>
-  <span style={{fontWeight:"bold"}}>Description                : </span><span>{object.description}</span>
-  <br></br>
-  <span style={{fontWeight:"bold"}}>Date Of Donation      : </span><span>{}</span>
-  <br></br>
-  <span style={{fontWeight:"bold"}}>Time of Donation      : </span><span>{}</span>
   </pre>:null}
    
   </DialogContentText>

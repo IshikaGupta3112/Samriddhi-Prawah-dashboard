@@ -61,6 +61,10 @@ const initial={
    console.log(action.payload);
    return null
 }
+case "Donated" :{
+   console.log(action.payload);
+   return null
+}
         
           default: return null;
      } 

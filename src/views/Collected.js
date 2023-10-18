@@ -22,7 +22,9 @@ import { approveData } from 'redux/actions/ItemsAction';
 import { rejectData } from 'redux/actions/ItemsAction';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './a.css';
 import { collectItem } from 'redux/actions/ItemsAction';
+import { donateData } from 'redux/actions/ItemsAction';
 
 function Collected(){
 
@@ -33,7 +35,11 @@ const [check4 , setCheck4] = useState(0);
 const[loading , setLoading] = useState(true);
 const[list1 , setList1] = useState();
 const [object , setObject] = useState();
-const [pages , setPages] = useState();
+const [pages , setPages] = useState()
+const[showDialog3 , setShowDialog3] = useState(false);
+const [name,setName]= useState();
+const [email,setMail]= useState();
+const closeDialog3 = () => setShowDialog3 (false);
 
 const list =useSelector((s)=>s.itemReducer);
 
@@ -161,15 +167,22 @@ if(n===1){
     dispatch(approveData(fd ,setCheck2 , setLoading));
   }
   function donate(e){
-    console.log('donated');
-    console.log(e.target.id);
     localStorage.setItem("productId2" , e.target.id);
-    setLoading(true);
-    setCheck4(0);
+    setShowDialog3(true);
+  }
+  function donateItem(e){
+  console.log('donated');
+  e.preventDefault();
+  console.log(name, email);
+  setLoading(true);
+  setShowDialog3(false);
+  setCheck4(0);
    const fd={
-      status:"DONATED"
+      name:name,
+      email:email
     } 
-    dispatch(collectItem(fd ,setCheck4 , setLoading));
+  dispatch(donateData(fd ,setCheck4 , setLoading));
+  dispatch(collectedItems(n,setLoading , setCheck ));
   }
   function disapprove(e){
     console.log('rejected');
@@ -247,6 +260,15 @@ return(<>
   </pre>:null}  
   </DialogContentText>
 </DialogContent>
+</Dialog>
+<Dialog open={showDialog3} onClose={closeDialog3} id='dialog3'>
+<form onSubmit={donateItem}>
+  <label>Name</label>
+  <input type='text' required placeholder='Enter name' value={name} onChange={(e)=>setName(e.target.value)}></input>
+  <label>Email</label>
+  <input type='email' placeholder='Enter Email' value={email} onChange={(e)=>setMail(e.target.value)}></input>
+  <button type='submit' id='formbtn2'>Donate</button>
+</form>
 </Dialog>
   <DataTable columns={columns} data={list1} customStyles={tableCustomStyles} 
   />
