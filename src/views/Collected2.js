@@ -1,23 +1,22 @@
-import react, { useState } from "react";
+import { useState } from "react";
 import DataTable from "react-data-table-component";
 import "../layouts/Table.css";
 import tick from "../assets/img/tick.svg";
 import cross from "../assets/img/cross.svg";
 import eye from "../assets/img/eye.svg";
+import collect2 from "../assets/img/collect2.svg";
+import image from "../assets/img/img.svg";
 import back from "../assets/img/back.svg";
 import forward from "../assets/img/forward.svg";
-import image from "../assets/img/img.svg";
 import {
   Dialog,
   DialogTitle,
-  Box,
   DialogContent,
-  DialogActions,
   DialogContentText,
 } from "@material-ui/core";
 import { tableCustomStyles } from "./CustomStyles";
 import { useDispatch } from "react-redux";
-import { rejectedItems } from "redux/actions/ItemsAction";
+import { collectedHostelItems } from "redux/actions/ItemsAction";
 import { useEffect } from "react";
 import * as ReactBootStrap from "react-bootstrap";
 import { useSelector } from "react-redux";
@@ -27,26 +26,27 @@ import { approveData } from "redux/actions/ItemsAction";
 import { rejectData } from "redux/actions/ItemsAction";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "./a.css";
+import { collectItem } from "redux/actions/ItemsAction";
 
-function Rejected() {
+function Collected_Hostel() {
   const [check, setCheck] = useState(0);
   const [check2, setCheck2] = useState(0);
   const [check3, setCheck3] = useState(0);
+  const [check4, setCheck4] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [check5, setCheck5] = useState(false);
   const [list1, setList1] = useState();
   const [object, setObject] = useState();
-  const [n, setN] = useState(1);
   const [pages, setPages] = useState();
-
   const list = useSelector((s) => s.itemReducer);
-
-  const dispatch = useDispatch();
+  const [n, setN] = useState(1);
 
   useEffect(() => {
     console.log(n);
     setCheck(0);
     setLoading(true);
-    dispatch(rejectedItems(n, setLoading, setCheck));
+    dispatch(collectedHostelItems(n, setLoading, setCheck));
     if (n === 1) {
       document.getElementById("backimg").style.display = "none";
       document.getElementById("frontimg").style.display = "block";
@@ -59,8 +59,9 @@ function Rejected() {
     }
   }, [n]);
 
+  const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(rejectedItems(n, setLoading, setCheck));
+    dispatch(collectedHostelItems(n, setLoading, setCheck));
   }, []);
 
   useEffect(() => {
@@ -85,6 +86,17 @@ function Rejected() {
       object.status = "APPROVED";
     }
   }, [check2]);
+  useEffect(() => {
+    console.log(check4);
+    if (check4 == 1) {
+      toast.success("Collected At AKG ", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      var productId2 = localStorage.getItem("productId2");
+      const object = list1.find((obj) => obj._id === productId2);
+      object.status = "COLLECTED_AKG";
+    }
+  }, [check4]);
 
   useEffect(() => {
     console.log(check3);
@@ -129,6 +141,12 @@ function Rejected() {
               className="tickimg"
             />
           ) : null}
+          <img
+            src={collect2}
+            onClick={collect}
+            id={row._id}
+            className="tickimg"
+          />
         </>
       ),
     },
@@ -145,6 +163,7 @@ function Rejected() {
       ),
     },
   ];
+
   function backFunc() {
     setN(n - 1);
   }
@@ -156,7 +175,6 @@ function Rejected() {
       document.getElementById("frontimg").style.display = "none";
     }
   }
-
   function approve(e) {
     console.log("approved");
     console.log(e.target.id);
@@ -168,6 +186,7 @@ function Rejected() {
     };
     dispatch(approveData(fd, setCheck2, setLoading));
   }
+
   function disapprove(e) {
     console.log("rejected");
     console.log(e.target.id);
@@ -178,6 +197,19 @@ function Rejected() {
       status: "REJECTED",
     };
     dispatch(rejectData(fd, setCheck3, setLoading));
+  }
+
+  function collect(e) {
+    console.log(e.target.value);
+    console.log(e.target.id);
+    setCheck5(!check5);
+    localStorage.setItem("productId2", e.target.id);
+    setLoading(true);
+    setCheck4(0);
+    const fd = {
+      status: "COLLECTED_AKG",
+    };
+    dispatch(collectItem(fd, setCheck4, setLoading));
   }
 
   function view(e) {
@@ -277,6 +309,8 @@ function Rejected() {
         data={list1}
         customStyles={tableCustomStyles}
       />
+      {console.log(newArray)}
+      <ToastContainer />
       <div
         id="navigationDiv"
         style={{
@@ -305,8 +339,7 @@ function Rejected() {
           ></img>
         </>
       </div>
-      <ToastContainer />
     </>
   );
 }
-export default Rejected;
+export default Collected_Hostel;

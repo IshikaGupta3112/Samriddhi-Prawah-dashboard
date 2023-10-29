@@ -1,19 +1,16 @@
 import "./auth.css";
 import logo from "../assets/img/logo2.svg";
-import mailimg from '../assets/img/mail.svg';
-import lockimg from '../assets/img/lock.svg';
+import mailimg from "../assets/img/mail.svg";
+import lockimg from "../assets/img/lock.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEye,
-  faEyeSlash,
-} from "@fortawesome/fontawesome-free-solid";
+import { faEye, faEyeSlash } from "@fortawesome/fontawesome-free-solid";
 import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useDispatch , useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import * as ReactBootStrap from "react-bootstrap";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { logindata } from "redux/actions/Authaction";
 
 function Login() {
@@ -30,19 +27,19 @@ function Login() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [check , setCheck]= useState(0);
+  const [check, setCheck] = useState(0);
 
-const mssg = useSelector((state)=>state.authreducer);
-console.log(mssg);
+  const mssg = useSelector((state) => state.authreducer);
+  console.log(mssg);
 
-useEffect(()=>{
+  useEffect(() => {
     console.log(check);
-    if(check==1){
-    toast.error(mssg.response1, {
-        position: toast.POSITION.TOP_RIGHT
-    });
-  }
-} ,[check]);
+    if (check == 1) {
+      toast.error(mssg.response1, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
+  }, [check]);
 
   function showHide() {
     setShow(!show);
@@ -56,13 +53,13 @@ useEffect(()=>{
   }
   function handleSubmit(e) {
     e.preventDefault();
-      setLoading(true);
-      setCheck(0);
-    const fd={
-      uname:email , 
-      password:password
-    }
-      dispatch(logindata(fd,history,setCheck, setLoading));
+    setLoading(true);
+    setCheck(0);
+    const fd = {
+      uname: email,
+      password: password,
+    };
+    dispatch(logindata(fd, history, setCheck, setLoading));
   }
 
   return (
@@ -78,12 +75,10 @@ useEffect(()=>{
         </div>
         <div id="forms">
           <h1 className="form-heading">Login</h1>
-          <form 
-          onSubmit={handleSubmit} 
-          id='formtop'>
+          <form onSubmit={handleSubmit} id="formtop">
             <div id="formflex">
               <label htmlFor="email" id="formlabel">
-               User Name
+                User Name
               </label>
               <input
                 type="text"
@@ -120,8 +115,7 @@ useEffect(()=>{
                   id="eyecloseimg"
                 />
               )}
-              <p id="forgotlink">
-              </p>
+              <p id="forgotlink"></p>
             </div>
             <button type="submit" id="formbtn">
               LOGIN

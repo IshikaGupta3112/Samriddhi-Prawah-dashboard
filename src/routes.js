@@ -23,86 +23,79 @@ import Icons from "views/Icons.js";
 import Maps from "views/Maps.js";
 import Notifications from "views/Notifications.js";
 import Approved from "views/Approved";
-import tickimg from './assets/img/tick.svg'
+import tickimg from "./assets/img/tick.svg";
 import Rejected from "views/Rejected";
+import Collected_Hostel from "views/Collected2";
 import Collector from "views/Collector";
 import Collected from "views/Collected";
 import Donor from "views/HighestDonor";
 import Donated from "views/Donated";
 
 const dashboardRoutes = [
-
-  // {
-  //   path: "/dashboard",
-  //   name: "Dashboard",
-  //   icon: "nc-icon nc-chart-pie-35",
-  //   component: Dashboard,
-  //   layout: "/admin"
-  // },
-
   {
     path: "/pending",
     name: "Pending Items",
     icon: "nc-icon nc-notes",
     component: Pending,
-    layout: "/admin"
+    layout: "/admin",
   },
   {
     path: "/approved",
     name: "Approved Items",
-    icon: "nc-icon nc-check-2", 
+    icon: "nc-icon nc-check-2",
     component: Approved,
-    layout: "/admin"
+    layout: "/admin",
   },
   {
     path: "/rejected",
     name: "Rejected Items",
-    icon: "nc-icon nc-simple-remove", 
+    icon: "nc-icon nc-simple-remove",
     component: Rejected,
-    layout: "/admin"
+    layout: "/admin",
+  },
+  {
+    path: "/hostel",
+    name: "Collected Hostel",
+    icon: "nc-icon nc-paper-2",
+    component: Collected_Hostel,
+    layout: "/admin",
   },
   {
     path: "/collected",
     name: "Collected Items",
-    icon: "nc-icon nc-planet", 
+    icon: "nc-icon nc-planet",
     component: Collected,
-    layout: "/admin"
+    layout: "/admin",
   },
   {
     path: "/donated",
     name: "Donated Items",
-    icon: "nc-icon nc-air-baloon", 
+    icon: "nc-icon nc-air-baloon",
     component: Donated,
-    layout: "/admin"
+    layout: "/admin",
   },
   {
     path: "/role",
     name: "Role",
     icon: "nc-icon nc-circle-09",
     component: Role,
-    layout: "/admin"
+    layout: "/admin",
   },
   {
     path: "/collector",
     name: "Collectors",
     icon: "nc-icon nc-single-02",
     component: Collector,
-    layout: "/admin"
+    layout: "/admin",
   },
   {
     path: "/donor",
     name: "Donors",
     icon: "nc-icon nc-tap-01",
     component: Donor,
-    layout: "/admin"
+    layout: "/admin",
   },
-  // {
-  //   path: "/typography",
-  //   name: "Typography",
-  //   icon: "nc-icon nc-paper-2",
-  //   component: Typography,
-  //   layout: "/admin"
-  // },
+
   // {
   //   path: "/icons",
   //   name: "Icons",

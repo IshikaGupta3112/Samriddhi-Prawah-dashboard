@@ -21,12 +21,18 @@ import { useLocation } from "react-router-dom";
 import { Navbar, Container, Nav, Dropdown, Button } from "react-bootstrap";
 import routes from "routes.js";
 import { useHistory } from "react-router-dom";
-import { Dialog , DialogTitle, Box,DialogContent , DialogActions, DialogContentText
-} from '@material-ui/core';
+import {
+  Dialog,
+  DialogTitle,
+  Box,
+  DialogContent,
+  DialogActions,
+  DialogContentText,
+} from "@material-ui/core";
 
 function Header() {
-  const[showDialog , setShowDialog] = useState(false);
-  const history =useHistory();
+  const [showDialog, setShowDialog] = useState(false);
+  const history = useHistory();
   const location = useLocation();
   const mobileSidebarToggle = (e) => {
     e.preventDefault();
@@ -49,14 +55,13 @@ function Header() {
     return "Brand";
   };
 
-  function logout(){
+  function logout() {
     setShowDialog(true);
-// history.push('/');
-// localStorage.removeItem("access");
+    // history.push('/');
+    // localStorage.removeItem("access");
   }
 
-
-  const closeDialog = () => setShowDialog (false);
+  const closeDialog = () => setShowDialog(false);
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
@@ -102,11 +107,11 @@ function Header() {
                 variant="default"
                 className="m-0"
               > */}
-                {/* <i className="nc-icon nc-planet"></i> */}
-                {/* <span className="notification">5</span> */}
-                {/* <span className="d-lg-none ml-1">Notification</span> */}
-              {/* </Dropdown.Toggle> */}
-              {/* <Dropdown.Menu>
+            {/* <i className="nc-icon nc-planet"></i> */}
+            {/* <span className="notification">5</span> */}
+            {/* <span className="d-lg-none ml-1">Notification</span> */}
+            {/* </Dropdown.Toggle> */}
+            {/* <Dropdown.Menu>
                 <Dropdown.Item
                   href="#pablo"
                   onClick={(e) => e.preventDefault()}
@@ -170,35 +175,35 @@ function Header() {
                 variant="default"
                 className="m-0"
               > */}
-                {/* <span className="no-icon">Dropdown</span> */}
+              {/* <span className="no-icon">Dropdown</span> */}
               {/* </Dropdown.Toggle> */}
               {/* <Dropdown.Menu aria-labelledby="navbarDropdownMenuLink"> */}
-                {/* <Dropdown.Item
+              {/* <Dropdown.Item
                   href="#pablo"
                   onClick={(e) => e.preventDefault()}
                 >
                   Action
                 </Dropdown.Item> */}
-                {/* <Dropdown.Item
+              {/* <Dropdown.Item
                   href="#pablo"
                   onClick={(e) => e.preventDefault()}
                 >
                   Another action
                 </Dropdown.Item> */}
-                {/* <Dropdown.Item
+              {/* <Dropdown.Item
                   href="#pablo"
                   onClick={(e) => e.preventDefault()}
                 >
                   Something
                 </Dropdown.Item> */}
-                {/* <Dropdown.Item
+              {/* <Dropdown.Item
                   href="#pablo"
                   onClick={(e) => e.preventDefault()}
                 >
                   Something else here
                 </Dropdown.Item> */}
-                {/* <div className="divider"></div> */}
-                {/* <Dropdown.Item
+              {/* <div className="divider"></div> */}
+              {/* <Dropdown.Item
                   href="#pablo"
                   onClick={(e) => e.preventDefault()}
                 >
@@ -212,25 +217,46 @@ function Header() {
                 href="#pablo"
                 onClick={(e) => e.preventDefault()}
               >
-                <span className="no-icon" onClick={logout}>Log out</span>
+                <span className="no-icon" onClick={logout}>
+                  Log out
+                </span>
               </Nav.Link>
             </Nav.Item>
           </Nav>
         </Navbar.Collapse>
       </Container>
       <Dialog open={showDialog} onClose={closeDialog}>
-{/* <DialogTitle>Do you Really want to Logout?? </DialogTitle> */}
-<DialogContent id='logoutDiv'>
-  <DialogContentText>
-  Do you Really want to Logout?? 
-  </DialogContentText>
-  <button style={{border:"none" , backgroundColor:"white" , color:"#109380"}} onClick={closeDialog}>Cancel</button>
-  <button style={{margin:"10px 15px 10px 15px" , border:"none" , backgroundColor:"#109380" , color:"white", padding:"0 10px" , borderRadius:"5px"}} onClick={()=>{
-    history.push('/');
-    localStorage.removeItem("access");
-  }}>Yes</button>
-</DialogContent>
-</Dialog>
+        {/* <DialogTitle>Do you Really want to Logout?? </DialogTitle> */}
+        <DialogContent id="logoutDiv">
+          <DialogContentText>Do you Really want to Logout??</DialogContentText>
+          <button
+            style={{
+              border: "none",
+              backgroundColor: "white",
+              color: "#109380",
+            }}
+            onClick={closeDialog}
+          >
+            Cancel
+          </button>
+          <button
+            style={{
+              margin: "10px 15px 10px 15px",
+              border: "none",
+              backgroundColor: "#109380",
+              color: "white",
+              padding: "0 10px",
+              borderRadius: "5px",
+            }}
+            onClick={() => {
+              history.push("/");
+              localStorage.removeItem("access");
+            }}
+          >
+            Yes
+          </button>
+        </DialogContent>
+      </Dialog>
     </Navbar>
   );
 }

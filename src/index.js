@@ -17,7 +17,7 @@
 */
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from './App';
+import App from "./App";
 
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
@@ -26,8 +26,8 @@ import "./assets/css/animate.min.css";
 import "./assets/scss/light-bootstrap-dashboard-react.scss?v=2.0.0";
 import "./assets/css/demo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import { Provider } from 'react-redux'
-import store , {persistor} from './redux/store.js'
+import { Provider } from "react-redux";
+import store, { persistor } from "./redux/store.js";
 import AdminLayout from "layouts/Admin.js";
 import Details from "views/Details";
 // import Login from "views/Login";
@@ -36,9 +36,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <BrowserRouter>
-   <Provider store={store}>
-        <App/>
-      </Provider>
+    <Provider store={store}>
+      <App />
+    </Provider>
     {/* <Switch>
       <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
       <Route path="/details" exact element={<Details />}></Route>

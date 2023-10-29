@@ -6,7 +6,7 @@ import collectorReducer from "./CollectorReducer";
 // import cart from "./cart";
 
 export default combineReducers({
-    authreducer,
-    itemReducer,
-    collectorReducer
-})
+  authreducer,
+  itemReducer,
+  collectorReducer,
+});

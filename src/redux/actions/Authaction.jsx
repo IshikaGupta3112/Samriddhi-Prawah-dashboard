@@ -1,24 +1,19 @@
-import axios from 'axios';
-import api from '../base.jsx';
+import axios from "axios";
+import api from "../base.jsx";
 
-export const logindata =(logindata ,history , setCheck , setLoading) =>
-async (dispatch)=>{
-    await axios.post("https://sempaw.onrender.com/api/admin/login" , logindata)
-      .then((res)=>{
+export const logindata =
+  (logindata, history, setCheck, setLoading) => async (dispatch) => {
+    await axios
+      .post("https://sempaw.onrender.com/api/admin/login", logindata)
+      .then((res) => {
         setCheck(1);
-          setLoading(false);
-          history.push("/admin/pending");
-          dispatch(
-              {type:'Login' ,
-              payload :res}
-              )
-          })
-      .catch((err)=>{
-        setCheck(1);
-          setLoading(false);
-          dispatch(
-              {type:'Login' ,
-              payload :err}
-          )
+        setLoading(false);
+        history.push("/admin/pending");
+        dispatch({ type: "Login", payload: res });
       })
-  }
+      .catch((err) => {
+        setCheck(1);
+        setLoading(false);
+        dispatch({ type: "Login", payload: err });
+      });
+  };
