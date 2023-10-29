@@ -309,7 +309,6 @@ function Collected_Hostel() {
         data={list1}
         customStyles={tableCustomStyles}
       />
-      {console.log(newArray)}
       <ToastContainer />
       <div
         id="navigationDiv"
