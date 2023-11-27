@@ -8,8 +8,8 @@ export const collectorData = (fd, setCheck, setLoading) => async (dispatch) => {
       Authorization: `Bearer ${accesstoken}`,
     },
   };
-  await axios
-    .post("https://sempaw.onrender.com/api/admin/togglecollector", fd, config)
+  await api
+    .post("admin/togglecollector", fd, config)
     .then((res) => {
       setCheck(1);
       setLoading(false);
@@ -29,9 +29,9 @@ export const collectorList = (n, setCheck, setLoading) => async (dispatch) => {
       Authorization: `Bearer ${accesstoken}`,
     },
   };
-  await axios
+  await api
     .get(
-      "https://sempaw.onrender.com/api/admin/users?role=COLLECTOR&page=" +
+      "admin/users?role=COLLECTOR&page=" +
         n +
         "&limit=10",
       config
@@ -55,8 +55,8 @@ export const donorList = (setLoading, setCheck) => async (dispatch) => {
       Authorization: `Bearer ${accesstoken}`,
     },
   };
-  await axios
-    .get("https://sempaw.onrender.com/api/admin/highestdonor", config)
+  await api
+    .get("admin/highestdonor", config)
     .then((res) => {
       setCheck(1);
       setLoading(false);

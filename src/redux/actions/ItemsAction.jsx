@@ -8,9 +8,9 @@ export const itemData = (n, setLoading, setCheck) => async (dispatch) => {
       Authorization: `Bearer ${accesstoken}`,
     },
   };
-  await axios
+  await api
     .get(
-      "https://sempaw.onrender.com/api/admin/items?status=PENDING&page=" +
+      "admin/items?status=PENDING&page=" +
         n +
         "&limit=10",
       config
@@ -34,9 +34,9 @@ export const approvedItems = (n, setLoading, setCheck) => async (dispatch) => {
       Authorization: `Bearer ${accesstoken}`,
     },
   };
-  await axios
+  await api
     .get(
-      "https://sempaw.onrender.com/api/admin/items?status=APPROVED&page=" +
+      "admin/items?status=APPROVED&page=" +
         n +
         "&limit=10",
       config
@@ -60,9 +60,9 @@ export const donatedItems = (n, setLoading, setCheck) => async (dispatch) => {
       Authorization: `Bearer ${accesstoken}`,
     },
   };
-  await axios
+  await api
     .get(
-      "https://sempaw.onrender.com/api/admin/items?status=DONATED&page=" +
+      "admin/items?status=DONATED&page=" +
         n +
         "&limit=10",
       config
@@ -86,9 +86,9 @@ export const collectedItems = (n, setLoading, setCheck) => async (dispatch) => {
       Authorization: `Bearer ${accesstoken}`,
     },
   };
-  await axios
+  await api
     .get(
-      "https://sempaw.onrender.com/api/admin/items/collected?type=AKG&page=" +
+      "admin/items/collected?type=AKG&page=" +
         n +
         "&limit=10",
       config
@@ -113,9 +113,9 @@ export const collectedHostelItems =
         Authorization: `Bearer ${accesstoken}`,
       },
     };
-    await axios
+    await api
       .get(
-        "https://sempaw.onrender.com/api/admin/items/collected?page=" +
+        "admin/items/collected?page=" +
           n +
           "&limit=10",
         config
@@ -139,9 +139,9 @@ export const rejectedItems = (n, setLoading, setCheck) => async (dispatch) => {
       Authorization: `Bearer ${accesstoken}`,
     },
   };
-  await axios
+  await api
     .get(
-      "https://sempaw.onrender.com/api/admin/items?status=REJECTED&page=" +
+      "admin/items?status=REJECTED&page=" +
         n +
         "&limit=10",
       config
@@ -166,9 +166,9 @@ export const approveData = (fd, setCheck2, setLoading) => async (dispatch) => {
       Authorization: `Bearer ${accesstoken}`,
     },
   };
-  await axios
+  await api
     .patch(
-      "https://sempaw.onrender.com/api/admin/status/" + productId2,
+      "admin/status/" + productId2,
       fd,
       config
     )
@@ -192,9 +192,9 @@ export const collectItem = (fd, setCheck4, setLoading) => async (dispatch) => {
       Authorization: `Bearer ${accesstoken}`,
     },
   };
-  await axios
+  await api
     .patch(
-      "https://sempaw.onrender.com/api/admin/status/" + productId2,
+      "admin/status/" + productId2,
       fd,
       config
     )
@@ -218,9 +218,9 @@ export const rejectData = (fd, setCheck3, setLoading) => async (dispatch) => {
       Authorization: `Bearer ${accesstoken}`,
     },
   };
-  await axios
+  await api
     .patch(
-      "https://sempaw.onrender.com/api/admin/status/" + productId2,
+      "admin/status/" + productId2,
       fd,
       config
     )
@@ -244,9 +244,9 @@ export const donateData = (fd, setCheck4, setLoading) => async (dispatch) => {
       Authorization: `Bearer ${accesstoken}`,
     },
   };
-  await axios
+  await api
     .patch(
-      "https://sempaw.onrender.com/api/admin/donate/" + productId2,
+      "admin/donate/" + productId2,
       fd,
       config
     )
