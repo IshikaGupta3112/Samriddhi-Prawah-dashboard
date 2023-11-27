@@ -133,14 +133,14 @@ function Collected() {
       name: "Action",
       cell: (row) => (
         <>
-          {row.status !== "APPROVED" ? (
+          {/* {row.status !== "APPROVED" ? (
             <img
               src={tick}
               onClick={approve}
               id={row._id}
               className="tickimg"
             />
-          ) : null}
+          ) : null} */}
           {row.status !== "REJECTED" ? (
             <img
               src={cross}
